@@ -1,3 +1,5 @@
+import os
+
 """
 Django settings for vgbknd project.
 
@@ -23,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-i!q!34yza+u=$j=e*&m^@2ovi6068@o!1bzrqe2@i_p(symnhh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -52,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'withenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'vgbknd.urls'
@@ -81,10 +84,10 @@ WSGI_APPLICATION = 'vgbknd.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vguidedb',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME': 'heroku_cf3d95742878d3b',
+        'USER': 'bf8a561e7b3f13',
+        'PASSWORD': 'c3c34295',
+        'HOST': 'us-cdbr-east-04.cleardb.com',
         'PORT': ''
     }
 }
@@ -126,8 +129,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_ROOT = os.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static')
+)
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
