@@ -4,7 +4,7 @@ from .models import *
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
-        fields = ['comment', 'comment_ranking', 'date', 'models', 'ranking', 'touristic_place', 'user'] 
+        fields = ['comment', 'comment_ranking', 'date', 'ranking', 'touristic_place', 'user'] 
     
     
     def create(self, validated_data):
