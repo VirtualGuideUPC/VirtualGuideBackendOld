@@ -4,7 +4,7 @@ from .views import TouristicPlaceById, TouristicPlaceListView, CreateTouristicPl
 urlpatterns = [
     path('places/create/', CreateTouristicPlace.as_view()),
     path('places/list/', TouristicPlaceListView.as_view()),
-    path('places/<str:pk>/', TouristicPlaceById.as_view()),
+    path('places/tp/<str:pk>/', TouristicPlaceById.as_view()),
     path('places/createphotos/', CreatePictureTouristicPlace.as_view()),
     path('places/<str:pk>/photos/', PictureTouristicPlaceListView.as_view())
-]
+]   

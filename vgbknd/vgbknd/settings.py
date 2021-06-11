@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'modules.users',
-    'modules.places'
+    'modules.places',
+    'modules.reviews'
 ]
 
 MIDDLEWARE = [

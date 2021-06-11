@@ -22,5 +22,6 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('modules.users.urls')),
-    path('api/', include('modules.places.urls'))
+    path('api/', include('modules.places.urls')),
+    path('api/', include('modules.reviews.urls'))
 ] +static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
