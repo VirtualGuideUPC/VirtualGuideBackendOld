@@ -7,7 +7,7 @@ class Review(models.Model):
     id = models.AutoField(primary_key=True)
     comment = models.CharField(max_length=50)
     comment_ranking = models.IntegerField()
-    date = models.DateField(default="2021-08-17")
+    date = models.DateField(default="2021-08-16")
     ranking = models.IntegerField()
     touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, default="1", on_delete=models.CASCADE)
     user = models.ForeignKey(Account, null=False, blank=False, default="1", on_delete=models.CASCADE)
