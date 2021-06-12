@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from .serializers import ReviewSerializer
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
+import jwt
 from .models import *
 
 # Create your views here.
