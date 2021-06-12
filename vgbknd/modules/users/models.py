@@ -5,12 +5,12 @@ from django.db.models.fields.related import ForeignKey
 # Create your models here.
 
 class Country(models.Model):
-    id = models.AutoField(primary_key=True)
+    country_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=70)
 
 
 class Account(AbstractUser):
-    id = models.AutoField(primary_key=True)
+    account_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=70)
     last_name = models.CharField(max_length=70)  
     email = models.CharField(max_length=70, unique=True, default="")

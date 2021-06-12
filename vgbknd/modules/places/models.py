@@ -3,21 +3,21 @@ from django.db import models
 # Create your models here.
 
 class TypePlace(models.Model):
-    id = models.AutoField(primary_key=True)
+    typeplace_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     icon = models.CharField(max_length=255)
 
 class Department(models.Model):
-    id = models.AutoField(primary_key=True)
+    department_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
 
 class Province(models.Model):
-    id = models.AutoField(primary_key=True)
+    province_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     department = models.ForeignKey(Department, null=False, blank=False, default=1, on_delete=models.CASCADE)
 
 class TouristicPlace(models.Model):
-    id = models.AutoField(primary_key=True)
+    touristicplace_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
     cost_info = models.CharField(max_length=255)
     price = models.FloatField()
@@ -34,7 +34,7 @@ class TouristicPlace(models.Model):
     status = models.IntegerField(default=1)
 
 class PictureTouristicPlace(models.Model):
-    id = models.AutoField(primary_key=True)
+    ptouristicplace_id = models.AutoField(primary_key=True)
     url = models.CharField(max_length=255)
     number = models.IntegerField()
     touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, default=1, on_delete=models.CASCADE)

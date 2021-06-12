@@ -85,9 +85,9 @@ WSGI_APPLICATION = 'vgbknd.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_ccb423583b78a02',
-        'USER': 'b35bf2ab08fa69',
-        'PASSWORD': 'c82a83f6',
+        'NAME': 'heroku_4496d54c881cf2b',
+        'USER': 'bf410fde56cda5',
+        'PASSWORD': '1318e9d1',
         'HOST': 'us-cdbr-east-04.cleardb.com',
         'PORT': ''
     }
