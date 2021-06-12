@@ -15,7 +15,7 @@ class TouristicPlaceSerializer(serializers.ModelSerializer):
 class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = PictureTouristicPlace
-        fields = ['url', 'number'] 
+        fields = ['url', 'number', "touristic_place"] 
     
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
