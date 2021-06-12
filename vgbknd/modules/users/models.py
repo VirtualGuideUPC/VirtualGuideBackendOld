@@ -16,7 +16,7 @@ class Account(AbstractUser):
     email = models.CharField(max_length=70, unique=True, default="")
     password = models.CharField(max_length=255)
     token_notification = models.CharField(max_length=70, default="")
-    country = models.ForeignKey(Country, null=False, blank=False, default="1", on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, null=False, blank=False, default=1, on_delete=models.CASCADE)
     status = models.IntegerField(default=1)
     birthday = models.DateField(default="2021-08-17")
     is_foreign = models.BooleanField(default=False)
