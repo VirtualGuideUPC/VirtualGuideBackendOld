@@ -24,7 +24,6 @@ class PlaceService:
         return distancia
 
     def tpnearbylist(self, tplist):
-        d = 0
         list = []
         print('entre')
         for tp in tplist:
