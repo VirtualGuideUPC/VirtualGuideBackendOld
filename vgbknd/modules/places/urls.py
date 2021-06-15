@@ -6,5 +6,6 @@ urlpatterns = [
     path('places/list/', TouristicPlaceListView.as_view()),
     path('places/tp/<str:pk>/', TouristicPlaceById.as_view()),
     path('places/createphotos/', CreatePictureTouristicPlace.as_view()),
-    path('places/<str:pk>/photos/', PictureTouristicPlaceListView.as_view())
+    path('places/<str:pk>/photos/', PictureTouristicPlaceListView.as_view()),
+    path('places/nearby/', PictureTouristicPlaceListView.as_view())
 ]   

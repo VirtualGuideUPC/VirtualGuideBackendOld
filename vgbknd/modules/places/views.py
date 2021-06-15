@@ -1,3 +1,4 @@
+from .services import PlaceService
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
@@ -69,4 +70,30 @@ class PictureTouristicPlaceListView(APIView):
 
         pictureTouristicPlaces = PictureTouristicPlace.objects.filter(touristic_place=pk)
         serializer = PictureTouristicPlaceSerializer(pictureTouristicPlaces, many=True)
+        return Response(serializer.data)
+
+class NearbyPlaces(APIView):
+    def post(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        touristicPlaces = TouristicPlace.objects.filter(type_place=1)
+        touristicPlacesList = list(touristicPlaces)
+
+        placeService = PlaceService() 
+
+        lat = request.data.get("latitude")
+        lon = request.data.get("longitude")
+
+        tplist = placeService.tpnearbylist(lat, lon, touristicPlacesList)
+
+        serializer = TouristicPlaceSerializer(tplist)
+        
         return Response(serializer.data)
