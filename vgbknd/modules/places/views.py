@@ -75,16 +75,15 @@ class PictureTouristicPlaceListView(APIView):
 class NearbyPlaces(APIView):
     def post(self, request):
         touristicPlaces = TouristicPlace.objects.filter(type_place=1)
-        touristicPlacesList = list(touristicPlaces)
 
         lat = request.data['latitude']
         lon = request.data['longitude']
 
         placeService = PlaceService(lat, lon) 
-        print('lista ', touristicPlacesList)
+        #print('lista ', touristicPlacesList)
         print('latitude ', lat)    
-        tplist = placeService.tpnearbylist(touristicPlacesList)
-        
+        tplist = placeService.tpnearbylist(touristicPlaces)
+        print('lista final ', tplist)    
         serializer = TouristicPlaceSerializer(tplist)
         
         return Response(serializer.data)
