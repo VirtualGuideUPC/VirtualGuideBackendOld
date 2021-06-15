@@ -74,16 +74,6 @@ class PictureTouristicPlaceListView(APIView):
 
 class NearbyPlaces(APIView):
     def post(self, request):
-        token = request.COOKIES.get('jwt')
-
-        if not token:
-            raise AuthenticationFailed('Unauthenticated!')
-
-        try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
-        except jwt.ExpiredSignatureError:
-            raise AuthenticationFailed('Unauthenticated!')
-
         touristicPlaces = TouristicPlace.objects.filter(type_place=1)
         touristicPlacesList = list(touristicPlaces)
 
