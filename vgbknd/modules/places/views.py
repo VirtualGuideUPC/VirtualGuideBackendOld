@@ -83,6 +83,6 @@ class NearbyPlaces(APIView):
         
         tplist = placeService.tpnearbylist(touristicPlaces)
         print('lista final ', tplist, type(tplist))    
-        serializer = TouristicPlaceSerializer(tplist)
-        
+        serializer = TouristicPlaceSerializer(touristicPlaces)
+        print('tipo final: ', type(serializer.data))
         return Response(serializer.data)
