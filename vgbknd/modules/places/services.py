@@ -8,14 +8,13 @@ class PlaceService:
     def distance(self, lat1, lon1, lat2, lon2):
         R = 6373.0
         print('entre')
-        print('lat1: ', lat1)
+        print('lat1: ', lat1, type(lat1))
         #lat1 = math.radians(la1)
         #lon1 = math.radians(lo1)
         #lat2 = math.radians(la2)
         #lon2 = math.radians(lo2)
 
-        
-
+    
 
         dlon = lon2 - lon1
         dlat = lat2 - lat1
