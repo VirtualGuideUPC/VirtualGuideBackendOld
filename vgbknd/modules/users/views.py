@@ -28,7 +28,7 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
 
-        print(user.password)
+        print('contra: ', password)
 
         payload = {
             'id': user.id,
@@ -39,6 +39,8 @@ class LoginView(APIView):
         token = jwt.encode(payload, 'secret', algorithm='HS256')
         decoded = jwt.decode(token, 'secret', algorithms=['HS256'])
         response = Response()
+
+        print('token', token)
 
         response.set_cookie(key='jwt', value=token, httponly=True)
         response.data = {
