@@ -34,7 +34,7 @@ class PlaceService:
  
         for tp in tplist:
             print ('tp latitude: ', tp.latitude)
-            d = self.distance(self.lat, self.lon, tp.latitude, tp.longitude)
+            d = self.distance(self.lat, self.lon, float(tp.latitude), float(tp.longitude))
             print('distancia: ', d)
             if d < 3:
                 list.append(object)
