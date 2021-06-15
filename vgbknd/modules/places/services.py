@@ -10,10 +10,10 @@ class PlaceService:
         print('entre')
         print('lat1: ', lat1, type(lat1))
         print('lat2: ', lat2, type(lat2))
-        #lat1 = math.radians(lat1)
-        #lon1 = math.radians(lo1)
-        #lat2 = math.radians(la2)
-        #lon2 = math.radians(lo2)
+        lat1 = math.radians(lat1)
+        lon1 = math.radians(lon1)
+        lat2 = math.radians(lat2)
+        lon2 = math.radians(lon2)
 
     
 
