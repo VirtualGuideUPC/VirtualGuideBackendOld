@@ -26,7 +26,7 @@ class PlaceService:
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
         distancia = R * c #esta distancia te la da en Kms
-        print('distancia: ', distancia)
+
         return distancia
 
     def tpnearbylist(self, tplist):
@@ -37,7 +37,8 @@ class PlaceService:
             d = self.distance(self.lat, self.lon, float(tp.latitude), float(tp.longitude))
             print('distancia: ', d)
             if d < 3:
-                list.append(object)
+                list.append(tp)
+                print('object: ', tp, type(tp))
 
         return list
 
