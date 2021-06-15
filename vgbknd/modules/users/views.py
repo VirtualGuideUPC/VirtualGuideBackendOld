@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import AccountSerializer
 from .models import *
-import jwt
+from PyJWT import jwt   
 import datetime
 
 # Create your views here.
@@ -36,7 +36,7 @@ class LoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256')
+        token = jwt.encode(payload, 'secret', algorithm="HS256")
 
         print('token', token)
 
