@@ -7,7 +7,7 @@ class PlaceService:
 
     def distance(self, lat1, lon1, lat2, lon2):
         R = 6373.0
-
+        print('entre')
         lat1 = math.radians(lat1)
         lon1 = math.radians(lon1)
         lat2 = math.radians(lat2)
@@ -25,7 +25,7 @@ class PlaceService:
 
     def tpnearbylist(self, tplist):
         list = []
-        print('entre')
+ 
         for tp in tplist:
             print ('tp latitude: ', tp.latitude)
             d = self.distance(self.lat, self.lon, tp.latitude, tp.longitude)
