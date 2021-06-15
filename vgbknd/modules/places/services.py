@@ -1,6 +1,9 @@
 import math
 
 class PlaceService:
+    def __init__(self, _lat, _lon):
+        self.lat = _lat
+        self.lon = _lon
 
     def distance(self, lat1, lon1, lat2, lon2):
         R = 6373.0
@@ -20,12 +23,12 @@ class PlaceService:
 
         return distancia
 
-    def tpnearbylist(self, lat, lon, tplist):
+    def tpnearbylist(self, tplist):
         d = 0
         list = []
 
         for object in tplist:
-            d = self.distance(lat, lon, object.latitude, object.longitude)
+            d = self.distance(self.lat, self.lon, object.latitude, object.longitude)
             if d < 3:
                 list.append(object)
 
