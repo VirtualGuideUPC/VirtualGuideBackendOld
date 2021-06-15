@@ -89,8 +89,8 @@ class NearbyPlaces(APIView):
 
         placeService = PlaceService() 
 
-        lat = request.data.get("latitude")
-        lon = request.data.get("longitude")
+        lat = request.data['latitude']
+        lon = request.data['longitude']
 
         tplist = placeService.tpnearbylist(lat, lon, touristicPlacesList)
 
