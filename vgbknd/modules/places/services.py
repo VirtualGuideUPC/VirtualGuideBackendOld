@@ -5,14 +5,14 @@ class PlaceService:
         self.lat = _lat
         self.lon = _lon
 
-    def distance(self, la1, lo1, la2, lo2):
+    def distance(self, lat1, lon1, lat2, lon2):
         R = 6373.0
         print('entre')
-        print('lat1: ', la1)
-        lat1 = math.radians(la1)
-        lon1 = math.radians(lo1)
-        lat2 = math.radians(la2)
-        lon2 = math.radians(lo2)
+        print('lat1: ', lat1)
+        #lat1 = math.radians(la1)
+        #lon1 = math.radians(lo1)
+        #lat2 = math.radians(la2)
+        #lon2 = math.radians(lo2)
 
         
 
@@ -20,7 +20,7 @@ class PlaceService:
         dlon = lon2 - lon1
         dlat = lat2 - lat1
 
-
+        print('dlon: ', dlon)
 
         a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
