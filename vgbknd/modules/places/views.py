@@ -81,7 +81,7 @@ class NearbyPlaces(APIView):
 
         placeService = PlaceService(lat, lon) 
         #print('lista ', touristicPlacesList)
-        print('latitude ', lat)    
+        print('latitude ', placeService)    
         tplist = placeService.tpnearbylist(touristicPlaces)
         print('lista final ', tplist)    
         serializer = TouristicPlaceSerializer(tplist)
