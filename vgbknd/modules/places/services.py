@@ -28,8 +28,8 @@ class PlaceService:
         list = []
         print('entre')
         for tp in tplist:
-            d = self.distance(self.lat, self.lon, tp.latitude, tp.longitude)
             print ('tp latitude: ', tp.latitude)
+            d = self.distance(self.lat, self.lon, tp.latitude, tp.longitude)
             if d < 3:
                 list.append(object)
 
