@@ -28,7 +28,7 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
 
-        print('contra: ', password)
+        print('nombre: ', user.name)
 
         payload = {
             'id': user.id,
