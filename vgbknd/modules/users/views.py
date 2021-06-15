@@ -36,6 +36,8 @@ class LoginView(APIView):
             'iat': datetime.datetime.utcnow()
         }
 
+        print('token', payload['exp'])
+
         token = jwt.encode(payload, 'secret', algorithm="HS256")
 
         print('token', token)
