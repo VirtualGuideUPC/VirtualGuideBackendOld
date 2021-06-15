@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import AccountSerializer
 from .models import *
-from PyJWT import jwt   
+import jwt   
 import datetime
 
 # Create your views here.
