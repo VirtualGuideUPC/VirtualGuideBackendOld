@@ -31,18 +31,15 @@ class LoginView(APIView):
         print('nombre: ', user.name)
 
         payload = {
-            "id": user.id,
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
-            "iat": datetime.datetime.utcnow()
+            'id': user.id
         }
 
         print('payload', payload)
 
-        token = jwt.encode(payload, "secret", algorithm="HS256")
+        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
 
         print('token', token)
 
-        #decoded = jwt.decode(token, 'secret', algorithms=['HS256'])
         response = Response()
 
         response.set_cookie(key='jwt', value=token, httponly=True)
