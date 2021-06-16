@@ -28,10 +28,10 @@ class LoginView(APIView):
         if not user.check_password(password):
             raise AuthenticationFailed('Incorrect password!')
 
-        print('nombre: ', user.name)
-
         payload = {
-            'id': user.id
+            'id': user.account_id,
+            'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
+            'iat': datetime.datetime.utcnow()
         }
 
         print('payload', payload)
