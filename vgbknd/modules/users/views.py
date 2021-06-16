@@ -36,7 +36,7 @@ class LoginView(APIView):
 
         print('payload', payload)
 
-        token = jwt.encode(payload, 'secret', algorithm='HS256').decode('utf-8')
+        token = jwt.encode(payload, 'secret', algorithm='HS256')
 
         print('token', token)
 
