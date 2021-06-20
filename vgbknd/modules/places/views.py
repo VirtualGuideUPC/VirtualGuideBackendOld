@@ -60,10 +60,7 @@ class TouristicPlaceById(APIView):
             'short_info': touristicPlace.short_info,
             'activities_info': touristicPlace.activities_info,
             'latitude': touristicPlace.latitude,
-            'longitude': touristicPlace.longitude,
-            'province': province.name,
-            'department': department.name,
-            'type_place': typePlace.name
+            'longitude': touristicPlace.longitude
         }
         return response
 
