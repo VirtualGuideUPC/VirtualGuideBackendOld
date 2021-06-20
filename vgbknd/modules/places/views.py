@@ -46,6 +46,7 @@ class TouristicPlaceById(APIView):
 
         touristicPlace = TouristicPlace.objects.filter(touristicplace_id=pk).first()
         province_id = touristicPlace.province
+        print('province id ', province_id)
         province = Province.objects.filter(province_id=province_id).first()
         #department = Department.objects.filter(department_id=province.department).first()
         #typePlace = TypePlace.objects.filter(typeplace_id=touristicPlace.type_place).first()
