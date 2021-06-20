@@ -28,3 +28,4 @@ class ReviewTouristicPlaceListView(APIView):
         reviews = Review.objects.filter(touristic_place=pk)
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
+

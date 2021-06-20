@@ -28,7 +28,7 @@ class TouristicPlace(models.Model):
     activities_info = models.CharField(max_length=255)
     latitude = models.CharField(max_length=20)
     longitude = models.CharField(max_length=20)
-    range = models.IntegerField()
+    tp_range = models.IntegerField()
     province = models.ForeignKey(Province, null=False, blank=False, default=1, on_delete=models.CASCADE)
     type_place = models.ForeignKey(TypePlace, null=False, blank=False, default=1, on_delete=models.CASCADE)
     status = models.IntegerField(default=1)

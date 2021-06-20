@@ -61,7 +61,7 @@ class TouristicPlaceById(APIView):
             'activities_info': touristicPlace.activities_info,
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
-            'range': touristicPlace.range
+            'range': touristicPlace.tp_range
         }
         return response
 
