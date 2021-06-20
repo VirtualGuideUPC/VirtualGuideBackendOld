@@ -61,10 +61,7 @@ class TouristicPlaceById(APIView):
             "activities_info": touristicPlace.activities_info,
             "latitude": touristicPlace.latitude,
             "longitude": touristicPlace.longitude,
-            "range": touristicPlace.range,
-            "province": province.name,
-            "department": department.name,
-            "type_place": typePlace.name
+            "range": touristicPlace.range
         }
 
         return response
