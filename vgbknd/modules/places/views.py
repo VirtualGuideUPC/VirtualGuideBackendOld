@@ -50,7 +50,7 @@ class TouristicPlaceById(APIView):
         response = Response()
         print("pictures", picturesSerializer)
         response.data = {
-            'pictures': {picturesSerializer},
+            'pictures': picturesSerializer.data,
             'name': touristicPlace.name,
             'cost_info': touristicPlace.cost_info,
             'price': touristicPlace.price,
