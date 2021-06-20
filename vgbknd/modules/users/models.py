@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from modules.places.models import TouristicPlace
 from django.db.models.fields.related import ForeignKey
 
 # Create your models here.
@@ -25,4 +26,8 @@ class Account(AbstractUser):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 
-    
+
+class Favourite(models.Model):
+    favourite_id = models.AutoField(primary_key=True)
+    touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, default=1, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)    
