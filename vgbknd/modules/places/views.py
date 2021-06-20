@@ -48,7 +48,7 @@ class TouristicPlaceById(APIView):
         tppictures = PictureTouristicPlace.objects.filter(touristic_place=pk)
         picturesSerializer = PictureTouristicPlaceSerializer(tppictures, many=True)
         response = Response()
-        print("pictures", tppictures)
+        print("pictures", picturesSerializer)
         response.data = {
             'pictures': picturesSerializer,
             'name': touristicPlace.name,
