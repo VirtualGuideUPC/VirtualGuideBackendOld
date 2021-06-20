@@ -45,9 +45,11 @@ class TouristicPlaceById(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         touristicPlace = TouristicPlace.objects.filter(touristicplace_id=pk).first()
+        tppictures = PictureTouristicPlace.objects.filter(touristic_place=pk)
         response = Response()
 
         response.data = {
+            'pictures': tppictures,
             'name': touristicPlace.name,
             'cost_info': touristicPlace.cost_info,
             'price': touristicPlace.price,
