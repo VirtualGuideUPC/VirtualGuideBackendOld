@@ -94,6 +94,6 @@ class ListFavourite(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        favouritePlaces = Favorite.objects.filter(user=pk)
+        favouritePlaces = Favourite.objects.filter(user=pk)
         serializer = FavouriteSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
