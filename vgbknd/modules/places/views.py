@@ -44,7 +44,7 @@ class TouristicPlaceById(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        touristicPlaces = TouristicPlace.objects.filter(id=pk).first()
+        touristicPlaces = TouristicPlace.objects.filter(touristicplace_id=pk).first()
         serializer = TouristicPlaceSerializer(touristicPlaces)
         return Response(serializer.data)
 
