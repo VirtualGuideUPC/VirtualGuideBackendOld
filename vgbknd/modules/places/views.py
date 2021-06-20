@@ -49,7 +49,7 @@ class TouristicPlaceById(APIView):
         response = Response()
 
         response.data = {
-            'pictures': tppictures,
+            'pictures': [{'url': tppictures.url}],
             'name': touristicPlace.name,
             'cost_info': touristicPlace.cost_info,
             'price': touristicPlace.price,
