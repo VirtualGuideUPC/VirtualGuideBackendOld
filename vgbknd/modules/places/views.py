@@ -45,11 +45,6 @@ class TouristicPlaceById(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         touristicPlace = TouristicPlace.objects.filter(touristicplace_id=pk).first()
-        province_id = touristicPlace.province.province_id
-        print('province id ', province_id)
-        province = Province.objects.filter(province_id=province_id).first()
-        #department = Department.objects.filter(department_id=province.department).first()
-        #typePlace = TypePlace.objects.filter(typeplace_id=touristicPlace.type_place).first()
         response = Response()
 
         response.data = {
@@ -64,7 +59,9 @@ class TouristicPlaceById(APIView):
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
             'tp_range': touristicPlace.tp_range,
-            'province': touristicPlace.province.name
+            'province': touristicPlace.province.name,
+            'department': touristicPlace.province.department.name,
+            'type_place': touristicPlace.type_place.name
         }
         return response
 
