@@ -46,8 +46,8 @@ class TouristicPlaceById(APIView):
 
         touristicPlace = TouristicPlace.objects.filter(touristicplace_id=pk).first()
         province = Province.objects.filter(province_id=touristicPlace.province).first()
-        #department = Department.objects.filter(department_id=province.department).first()
-        #typePlace = TypePlace.objects.filter(typeplace_id=touristicPlace.type_place).first()
+        department = Department.objects.filter(department_id=province.department).first()
+        typePlace = TypePlace.objects.filter(typeplace_id=touristicPlace.type_place).first()
         response = Response()
 
         response.data = {
@@ -61,7 +61,9 @@ class TouristicPlaceById(APIView):
             'activities_info': touristicPlace.activities_info,
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
-            'range': touristicPlace.tp_range
+            'province': province.name,
+            'department': department.name,
+            'type_place': typePlace.name
         }
         return response
 
