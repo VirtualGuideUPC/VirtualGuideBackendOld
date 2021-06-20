@@ -44,9 +44,30 @@ class TouristicPlaceById(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        touristicPlaces = TouristicPlace.objects.filter(touristicplace_id=pk).first()
-        serializer = TouristicPlaceSerializer(touristicPlaces)
-        return Response(serializer.data)
+        touristicPlace = TouristicPlace.objects.filter(touristicplace_id=pk).first()
+        province = Province.objects.filter(province_id=touristicPlace.province).first()
+        department = Department.objects.filter(department_id=province.department).first()
+        typePlace = TypePlace.objects.filter(typeplace_id=touristicPlace.type_place).first()
+        response = Response()
+
+        response.data = {
+            "name": touristicPlace.name,
+            "cost_info": touristicPlace.cost_info,
+            "price": touristicPlace.price,
+            "schedule_info": touristicPlace.schedule_info,
+            "historic_info": touristicPlace.historic_info,
+            "long_info": touristicPlace.long_info,
+            "short_info": touristicPlace.short_info,
+            "activities_info": touristicPlace.activities_info,
+            "latitude": touristicPlace.latitude,
+            "longitude": touristicPlace.longitude,
+            "range": touristicPlace.range,
+            "province": province.name,
+            "department": department.name,
+            "type_place": typePlace.name
+        }
+
+        return response
 
 class CreatePictureTouristicPlace(APIView):
    def post(self, request):
