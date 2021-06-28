@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import *
+from modules.users.models import Account
 
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
@@ -18,17 +19,13 @@ class UserNameListingField(serializers.RelatedField):
 
 
 class ReviewTpSerializer(serializers.ModelSerializer):
-    images = serializers.SerializerMethodField()
 
-    def get_images(self, instance):
-        return [slider_image.image.url for slider_image in instance.slider_image.all()]
-
+    #user_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
-        fields = ['user.name', 'date', 'comment', 'ranking'] 
-    
-    
+        fields = ['user', 'date', 'comment', 'ranking'] 
+
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         instance.save()
