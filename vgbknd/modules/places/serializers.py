@@ -22,7 +22,7 @@ class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class Category(serializers.ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['category_id', 'number', "touristic_place"] 

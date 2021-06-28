@@ -53,6 +53,7 @@ class TouristicPlaceById(APIView):
          
         typeplaces = TypePlace.objects.filter(touristicPlace)
         reviews = Review.objects.filter(touristic_place=pk)
+        print('reviews: ', reviews)
         reviewsSerializer = ReviewSerializer(reviews, many=True)
         
         response = Response()
