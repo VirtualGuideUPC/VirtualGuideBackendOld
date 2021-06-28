@@ -18,22 +18,10 @@ class UserNameListingField(serializers.RelatedField):
 
 
 class ReviewTpSerializer(serializers.ModelSerializer):
-    user_id = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='user_id'
-    )
-
-
-    user_name = serializers.SlugRelatedField(
-        many=True,
-        read_only=True,
-        slug_field='name'
-    )
 
     class Meta:
         model = Review
-        fields = ['user_id', 'user_name', 'date', 'comment', 'ranking'] 
+        fields = ['date', 'comment', 'ranking'] 
     
     
     def create(self, validated_data):
