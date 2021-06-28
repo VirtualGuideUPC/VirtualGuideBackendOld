@@ -30,6 +30,7 @@ class TouristicPlace(models.Model):
     longitude = models.CharField(max_length=20)
     tp_range = models.IntegerField()
     ranking = models.FloatField(default=0.0)
+    number_comments = models.IntegerField(default=0)
     province = models.ForeignKey(Province, null=False, blank=False, default=1, on_delete=models.CASCADE)
     type_place = models.ForeignKey(TypePlace, null=False, blank=False, default=1, on_delete=models.CASCADE)
     status = models.IntegerField(default=1)

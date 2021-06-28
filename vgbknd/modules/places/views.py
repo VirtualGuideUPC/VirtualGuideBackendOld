@@ -65,6 +65,8 @@ class TouristicPlaceById(APIView):
             'categories': touristicPlace.type_place.name,
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
+            'ranking': touristicPlace.ranking,
+            'number_comments': touristicPlace.number_comments,
             'reviews': reviewsSerializer.data
         }
         return response
