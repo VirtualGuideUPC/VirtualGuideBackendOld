@@ -21,3 +21,13 @@ class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
+
+class Category(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['category_id', 'number', "touristic_place"] 
+    
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance

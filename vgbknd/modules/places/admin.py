@@ -8,6 +8,9 @@ admin.site.register(Department)
 admin.site.register(Province)
 admin.site.register(TouristicPlace)
 admin.site.register(PictureTouristicPlace)
+admin.site.register(Category)
+admin.site.register(TouristicPlaceCategory)
 
 
 
+    

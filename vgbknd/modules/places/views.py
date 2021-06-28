@@ -4,6 +4,8 @@ from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 from .serializers import TouristicPlaceSerializer, PictureTouristicPlaceSerializer
 from .models import *
+from modules.reviews.models import Review
+from modules.reviews.serializers import ReviewSerializer
 import jwt
 
 # Create your views here.
@@ -45,26 +47,24 @@ class TouristicPlaceById(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         touristicPlace = TouristicPlace.objects.filter(touristicplace_id=pk).first()
+        
         tppictures = PictureTouristicPlace.objects.filter(touristic_place=pk)
         picturesSerializer = PictureTouristicPlaceSerializer(tppictures, many=True)
+         
+        typeplaces = TypePlace.objects.filter(touristicPlace)
+        reviews = Review.objects.filter(touristic_place=pk)
+        reviewsSerializer = ReviewSerializer(reviews, many=True)
+        
         response = Response()
         print("pictures", picturesSerializer)
         response.data = {
             'pictures': picturesSerializer.data,
             'name': touristicPlace.name,
-            'cost_info': touristicPlace.cost_info,
-            'price': touristicPlace.price,
-            'schedule_info': touristicPlace.schedule_info,
-            'historic_info': touristicPlace.historic_info,
             'long_info': touristicPlace.long_info,
-            'short_info': touristicPlace.short_info,
-            'activities_info': touristicPlace.activities_info,
+            'categories': touristicPlace.type_place.name,
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
-            'tp_range': touristicPlace.tp_range,
-            'province': touristicPlace.province.name,
-            'department': touristicPlace.province.department.name,
-            'type_place': touristicPlace.type_place.name
+            'reviews': reviewsSerializer.data
         }
         return response
 

@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(Country)
 admin.site.register(Account)
 admin.site.register(Favourite)
+admin.site.register(PreferenceCategory)
