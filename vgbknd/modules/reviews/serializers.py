@@ -19,16 +19,11 @@ class UserNameListingField(serializers.RelatedField):
 
 
 class ReviewTpSerializer(serializers.ModelSerializer):
-    my_field = serializers.SerializerMethodField('is_named_bar')
-
-    def is_named_bar(self, foo):
-        return foo.name == "bar" 
+    user_name = serializers.SerializerMethodField()
 
     class Meta:
         model = Review
-        fields = ['my_field', 'date', 'comment', 'ranking'] 
+        fields = ['user_name', 'date', 'comment', 'ranking'] 
 
-    def create(self, validated_data):
-        instance = self.Meta.model(**validated_data)
-        instance.save()
-        return instance
+    def get_user_name(self, obj):
+        return obj.account.name
