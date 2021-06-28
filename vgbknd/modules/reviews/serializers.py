@@ -22,4 +22,4 @@ class ReviewTpSerializer(serializers.ModelSerializer):
         fields = ['user_name', 'date', 'comment', 'ranking'] 
 
     def get_user_name(self, obj):
-        return obj.account.name
+        return obj.user.name
