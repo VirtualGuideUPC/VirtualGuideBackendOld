@@ -24,7 +24,8 @@ class ReviewTpSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Review
-        fields = ['user', 'date', 'comment', 'ranking'] 
+        fields = ['account_id', 'date', 'comment', 'ranking'] 
+        depth = 1
 
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
