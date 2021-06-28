@@ -5,7 +5,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from .serializers import TouristicPlaceSerializer, PictureTouristicPlaceSerializer
 from .models import *
 from modules.reviews.models import Review
-from modules.reviews.serializers import ReviewSerializer
+from modules.reviews.serializers import ReviewTpSerializer
 import jwt
 
 # Create your views here.
@@ -54,10 +54,10 @@ class TouristicPlaceById(APIView):
         #typeplaces = TypePlace.objects.filter(touristicPlace)
         reviews = Review.objects.filter(touristic_place=pk)
         print("reviews: ", reviews)
-        reviewsSerializer = ReviewSerializer(reviews, many=True)
+        reviewsSerializer = ReviewTpSerializer(reviews, many=True)
         
         response = Response()
-        print("pictures", picturesSerializer)
+
         response.data = {
             'pictures': picturesSerializer.data,
             'name': touristicPlace.name,
