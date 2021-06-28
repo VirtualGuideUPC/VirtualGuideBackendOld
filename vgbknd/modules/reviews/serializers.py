@@ -15,15 +15,11 @@ class ReviewSerializer(serializers.ModelSerializer):
 
 
 class ReviewTpSerializer(serializers.ModelSerializer):
-    user_id = serializers.SerializerMethodField('get_user_id')
     user_name = serializers.SerializerMethodField('get_user_name')
 
     class Meta:
         model = Review
-        fields = ['user_id', 'user_name', 'date', 'comment', 'ranking'] 
-
-    def get_user_id(self, obj):
-        return obj.user.account_id
+        fields = ['review_id', 'user_name', 'date', 'comment', 'ranking'] 
 
     def get_user_name(self, obj):
         return obj.user.name
