@@ -18,10 +18,15 @@ class UserNameListingField(serializers.RelatedField):
 
 
 class ReviewTpSerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField()
+
+    def get_images(self, instance):
+        return [slider_image.image.url for slider_image in instance.slider_image.all()]
+
 
     class Meta:
         model = Review
-        fields = ['date', 'comment', 'ranking'] 
+        fields = ['user.name', 'date', 'comment', 'ranking'] 
     
     
     def create(self, validated_data):
