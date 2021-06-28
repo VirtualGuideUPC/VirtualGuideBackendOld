@@ -13,13 +13,9 @@ class ReviewSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class UserNameListingField(serializers.RelatedField):
-    def to_representation(self, value):
-        return 'user_name: %s' (value.name)
-
 
 class ReviewTpSerializer(serializers.ModelSerializer):
-    user_name = serializers.SerializerMethodField()
+    user_name = serializers.SerializerMethodField('get_user_name')
 
     class Meta:
         model = Review
