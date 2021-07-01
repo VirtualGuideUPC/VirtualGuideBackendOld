@@ -16,7 +16,7 @@ class CreateReview(APIView):
         tp_id = request.data['touristic_place']
         tp = TouristicPlace.objects.filter(touristicplace_id = tp_id).first()
         print("tp:", tp)
-        tp_serializer = TouristicPlaceSerializer(instance = tp)
+        tp_serializer = TouristicPlaceSerializer(tp)
         tp_serializer.save()
 
         serializer.save()
