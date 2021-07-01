@@ -12,7 +12,7 @@ class TouristicPlaceSerializer(serializers.ModelSerializer):
         return instance
 
     def update(self, instance):
-        instance.comments = 12
+        instance.number_comments = 12
         instance.ranking = 2.5
         instance.save()
         return instance
