@@ -11,13 +11,6 @@ class TouristicPlaceSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-    def update(self, instance):
-        instance.number_comments = 12
-        instance.ranking = 2.5
-        instance.save()
-        return instance
-
-
 
 class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -29,12 +22,23 @@ class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class CategorySerializer(serializers.ModelSerializer):
+class TouristicPlaceCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
-        fields = ['category_id', 'number', "touristic_place"] 
+        model = TouristicPlaceCategory
+        fields = ['category', "touristic_place"] 
     
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
+
+
+class CategoryTpSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField('get_name')
+    
+    class Meta:
+        model = TouristicPlaceCategory
+        fields = ['category', 'name'] 
+
+    def get_name(self, obj):
+        return obj.category.name

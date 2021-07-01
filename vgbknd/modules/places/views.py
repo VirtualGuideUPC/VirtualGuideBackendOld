@@ -2,7 +2,7 @@ from .services import PlaceService
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import TouristicPlaceSerializer, PictureTouristicPlaceSerializer
+from .serializers import CategoryTpSerializer, TouristicPlaceCategorySerializer, TouristicPlaceSerializer, PictureTouristicPlaceSerializer
 from .models import *
 from modules.reviews.models import Review
 from modules.reviews.serializers import ReviewTpSerializer
@@ -17,6 +17,12 @@ class CreateTouristicPlace(APIView):
         serializer.save()
         return Response(serializer.data)
 
+class AddTpCategory(APIView):
+    def post(self, request):
+        serializer = TouristicPlaceCategorySerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
 
 class TouristicPlaceListView(APIView):
     def get(self, request):
@@ -50,10 +56,13 @@ class TouristicPlaceById(APIView):
         
         tppictures = PictureTouristicPlace.objects.filter(touristic_place=pk)
         picturesSerializer = PictureTouristicPlaceSerializer(tppictures, many=True)
-         
-        #typeplaces = TypePlace.objects.filter(touristicPlace)
+
+        categorystp =  TouristicPlaceCategory.objects(touristic_place=pk)
+        categorystpSerializer = CategoryTpSerializer(categorystp, many=True)
+
+        
         reviews = Review.objects.filter(touristic_place=pk)
-        print("reviews: ", reviews)
+       
         reviewsSerializer = ReviewTpSerializer(reviews, many=True)
         
         response = Response()
@@ -62,7 +71,7 @@ class TouristicPlaceById(APIView):
             'pictures': picturesSerializer.data,
             'name': touristicPlace.name,
             'long_info': touristicPlace.long_info,
-            'categories': touristicPlace.type_place.name,
+            'categories': categorystpSerializer.data,
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
             'ranking': touristicPlace.ranking,

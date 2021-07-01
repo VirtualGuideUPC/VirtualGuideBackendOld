@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, FavouriteSerializer
+from .serializers import AccountSerializer, FavouriteSerializer, PreferenceCategorySerializer
 from .models import *
 import jwt   
 import datetime
@@ -11,6 +11,13 @@ import datetime
 class RegisterView(APIView):
     def post(self, request):
         serializer = AccountSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+class AddPreference(APIView):
+    def post(self, request):
+        serializer = PreferenceCategorySerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
