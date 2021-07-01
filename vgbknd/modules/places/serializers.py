@@ -11,6 +11,13 @@ class TouristicPlaceSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+    def update(self, instance):
+        instance.comments = 12
+        instance.ranking = 2.5
+        instance.save()
+        return instance
+
+
 
 class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
     class Meta:

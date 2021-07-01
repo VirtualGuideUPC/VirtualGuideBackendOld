@@ -1,3 +1,5 @@
+from modules.places.serializers import TouristicPlaceSerializer
+from modules.places.models import TouristicPlace
 from rest_framework.views import APIView
 from .serializers import ReviewSerializer
 from rest_framework.response import Response
@@ -11,6 +13,12 @@ class CreateReview(APIView):
         serializer = ReviewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        tp = TouristicPlace.objects.filter(id = request.data['touristic_place']).first()
+
+        tp_serializer = TouristicPlaceSerializer(instance = tp)
+        tp_serializer.save()
+
+        
         return Response(serializer.data)
 
 class ReviewTouristicPlaceListView(APIView):
