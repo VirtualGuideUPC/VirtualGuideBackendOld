@@ -12,16 +12,7 @@ class CreateReview(APIView):
     def post(self, request):
         serializer = ReviewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        print("Entre")
-        tp_id = request.data['touristic_place']
-        tp = TouristicPlace.objects.filter(touristicplace_id = tp_id).first()
-        print("tp:", tp)
-        tp_serializer = TouristicPlaceSerializer(tp)
-        tp_serializer.save()
-
         serializer.save()
-
-
         
         return Response(serializer.data)
 

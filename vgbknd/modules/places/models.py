@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg, OuterRef, Subquery
 
 # Create your models here.
 
@@ -29,7 +30,12 @@ class TouristicPlace(models.Model):
     latitude = models.CharField(max_length=20)
     longitude = models.CharField(max_length=20)
     tp_range = models.IntegerField()
-    ranking = models.FloatField(default=0.0)
+    avg_ranking = models.FloatField(default=0.0)
+
+    @property
+    def ranking(self):
+        return self.avg_ranking or self.ratings.aggregate(avg_ranking=Avg('ranking'))['avg_ranking']
+
     number_comments = models.IntegerField(default=0)
     province = models.ForeignKey(Province, null=False, blank=False, default=1, on_delete=models.CASCADE)
     type_place = models.ForeignKey(TypePlace, null=False, blank=False, default=1, on_delete=models.CASCADE)

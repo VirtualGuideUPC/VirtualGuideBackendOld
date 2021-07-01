@@ -9,7 +9,7 @@ class Review(models.Model):
     comment_ranking = models.IntegerField()
     date = models.DateField(default="2021-08-16")
     ranking = models.IntegerField()
-    touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, default="1", on_delete=models.CASCADE)
+    touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, related_name='ratings', default="1", on_delete=models.CASCADE)
     user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)
 
 class PictureReview(models.Model):
