@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AddTpCategory, TouristicPlaceById, TouristicPlaceListView, CreateTouristicPlace, PictureTouristicPlaceListView, CreatePictureTouristicPlace, NearbyPlaces, 
+from .views import AddTpCategory, TouristicPlaceById, TouristicPlaceListView, CreateTouristicPlace, PictureTouristicPlaceListView, CreatePictureTouristicPlace, NearbyPlaces 
 
 urlpatterns = [
     path('places/create/', CreateTouristicPlace.as_view()),
