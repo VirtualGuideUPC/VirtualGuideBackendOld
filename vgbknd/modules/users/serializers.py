@@ -37,6 +37,13 @@ class PreferenceCategorySerializer(serializers.ModelSerializer):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
+    
+    def update(self, instance, validated_data):
+        instance.category = validated_data.get('category', instance.category)
+        instance.user = validated_data.get('user', instance.user)
+        instance.status = validated_data.get('status', instance.status)
+        instance.save()
+        return instance
 
 class PreferenceTypePlaceSerializer(serializers.ModelSerializer):
     class Meta:
