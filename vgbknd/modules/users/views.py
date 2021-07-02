@@ -105,7 +105,7 @@ class ListFavourite(APIView):
         user_id = request.data['user']
         department_id = request.data['department']
 
-        favouritePlaces = Favourite.objects.filter(user=user_id, touristic_place__province = department_id)
+        favouritePlaces = Favourite.objects.filter(user=user_id, touristic_place__province__department = department_id)
         for place in favouritePlaces:
             print("Department: ", place)
         serializer = FavouriteSerializer(favouritePlaces, many=True)
