@@ -55,7 +55,7 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
         fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'tp_range', 'province_name', 'avg_ranking', 'number_comments'] 
 
     def get_province_name(self, obj):
-        print("Tipo: ", obj.province.name.Type())
+        print("Tipo: ", type(obj.province.name))
         return obj.province.name
     
  
