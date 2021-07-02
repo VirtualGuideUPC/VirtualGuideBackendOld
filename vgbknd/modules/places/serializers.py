@@ -63,7 +63,6 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
     
     def get_picture(self, obj):
         tp_id = obj.id
-        print("Tp_id: ", tp_id)
         return tp_id
     
  
