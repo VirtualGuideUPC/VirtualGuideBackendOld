@@ -1,4 +1,4 @@
-from vgbknd.modules.places.serializers import NearbyPlaceSerializer
+from modules.places.serializers import NearbyPlaceSerializer
 from rest_framework import serializers
 from .models import *
 
