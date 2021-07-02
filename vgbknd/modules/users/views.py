@@ -3,7 +3,7 @@ from modules.places.models import Province
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, FavouriteSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
+from .serializers import AccountSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
 from .models import *
 import jwt   
 import datetime
@@ -117,7 +117,7 @@ class ListFavourite(APIView):
 
         favouritePlaces = Favourite.objects.filter(user=user_id, touristic_place__province__department = department_id)
 
-        serializer = FavouriteSerializer(favouritePlaces, many=True)
+        serializer = FavouriteTpSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
 
 

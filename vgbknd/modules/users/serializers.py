@@ -28,6 +28,22 @@ class FavouriteSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class FavouriteTpSerializer(serializers.ModelSerializer):
+    tp = serializers.SerializerMethodField('get_tp')
+
+    class Meta:
+        model = Favourite
+        fields = [ 'user', 'tp']
+    
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
+    def get_tp(self, obj):
+        tp = obj.touristic_place
+        return tp
+
 class PreferenceCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PreferenceCategory
