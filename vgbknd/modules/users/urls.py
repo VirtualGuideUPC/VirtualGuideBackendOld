@@ -9,5 +9,5 @@ urlpatterns = [
     path('users/logout/', LogoutView.as_view()),
     path('users/favourite/create/', AddFavourite.as_view()),
     path('users/preference/create/', AddPreference.as_view()),
-    path('users/<str:pk>/favourites/', ListFavourite.as_view())
+    path('users/favourites/', ListFavourite.as_view())
 ]

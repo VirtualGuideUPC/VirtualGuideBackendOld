@@ -1,3 +1,4 @@
+from vgbknd.modules.places.models import Department
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
@@ -90,7 +91,7 @@ class AddFavourite(APIView):
         return Response(serializer.data) 
 
 class ListFavourite(APIView):
-    def get(self, request, pk):
+    def get(self, request):
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -101,6 +102,9 @@ class ListFavourite(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        favouritePlaces = Favourite.objects.filter(user=pk)
+        user_id = request.data['user']
+        department_id = request.data['department']
+
+        favouritePlaces = Favourite.objects.filter(user=user_id).select_related('touristic_place__province__department').filter(department_id=department_id)
         serializer = FavouriteSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
