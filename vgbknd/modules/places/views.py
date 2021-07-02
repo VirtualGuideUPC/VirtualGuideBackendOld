@@ -57,7 +57,7 @@ class TouristicPlaceById(APIView):
         tppictures = PictureTouristicPlace.objects.filter(touristic_place=pk)
         picturesSerializer = PictureTouristicPlaceSerializer(tppictures, many=True)
 
-        categorystp =  TouristicPlaceCategory.objects(touristic_place=pk)
+        categorystp =  TouristicPlaceCategory.objects.filter(touristic_place=pk)
         categorystpSerializer = CategoryTpSerializer(categorystp, many=True)
 
         
