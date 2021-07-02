@@ -102,6 +102,8 @@ class ListFavourite(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         user_id = request.data['user']
+
+        print("user_id", user_id)
         department_id = request.data['department']
 
         favouritePlaces = Favourite.objects.filter(user=user_id)
