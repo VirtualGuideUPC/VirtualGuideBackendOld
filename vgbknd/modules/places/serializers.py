@@ -55,7 +55,7 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TouristicPlace
-        fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'tp_range', 'province_name', 'avg_ranking', 'number_comments'] 
+        fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'picture','tp_range', 'province_name', 'avg_ranking', 'number_comments'] 
 
     def get_province_name(self, obj):
         pname = obj.province.name
@@ -65,7 +65,7 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
         tp_id = obj.id 
         a = 1
         tppicture = PictureTouristicPlace.objects.filter(touristic_place=tp_id).first()
-        picture_serializser = PictureTpUrlSerializer(tppicture)
-        return str(a)
+        picture_serializer = PictureTpUrlSerializer(tppicture)
+        return str(picture_serializer)
     
  
