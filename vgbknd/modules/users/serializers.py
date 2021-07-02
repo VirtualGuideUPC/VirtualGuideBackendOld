@@ -67,6 +67,6 @@ class UpPreferenceCategorySerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         instance.category = validated_data.get('category', instance.category)
         instance.user = validated_data.get('user', instance.user)
-        instance.user = validated_data.get('status', instance.status)
+        instance.status = validated_data.get('status', instance.status)
         instance.save()
         return instance
