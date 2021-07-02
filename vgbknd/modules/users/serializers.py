@@ -42,7 +42,8 @@ class FavouriteTpSerializer(serializers.ModelSerializer):
 
     def get_tp(self, obj):
         tp = obj.touristic_place
-        return tp
+        print("Valor: ", tp)
+        return str(tp)
 
 class PreferenceCategorySerializer(serializers.ModelSerializer):
     class Meta:
