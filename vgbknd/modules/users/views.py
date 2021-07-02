@@ -3,7 +3,7 @@ from modules.places.models import Province
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, FavouriteSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
+from .serializers import AccountSerializer, FavouriteSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer, UpPreferenceCategorySerializer
 from .models import *
 import jwt   
 import datetime
@@ -164,4 +164,22 @@ class ListTypePlacePreference(APIView):
         prtypeplace = PreferenceTypePlace.objects.filter(user=user_id)
 
         serializer = PreferenceTypePlaceSerializer(prtypeplace, many=True)
+        return Response(serializer.data)
+
+class UpdateCategoryPreference(APIView):
+    def put(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+        user_id = request.data['user']
+        cat = request.data['category']
+        prtypeplace = PreferenceCategory.objects.filter(user=user_id, category=cat).first()
+        serializer = UpPreferenceCategorySerializer(prtypeplace, data=request.data)
+        serializer.save()
         return Response(serializer.data)
