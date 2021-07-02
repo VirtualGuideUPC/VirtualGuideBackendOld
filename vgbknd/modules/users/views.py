@@ -181,8 +181,27 @@ class UpdateCategoryPreference(APIView):
         user_id = request.data['user']
         cat = request.data['category']
         prtypeplace = PreferenceCategory.objects.filter(user=user_id, category=cat).first()
-        print("Category: ", prtypeplace)
         serializer = PreferenceCategorySerializer(prtypeplace, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UpdateTypePlacePreference(APIView):
+    def put(self, request):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+        user_id = request.data['user']
+        tp = request.data['type_place']
+        prtypeplace = PreferenceTypePlace.objects.filter(user=user_id, type_place=tp).first()
+        serializer = PreferenceTypePlaceSerializer(prtypeplace, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)

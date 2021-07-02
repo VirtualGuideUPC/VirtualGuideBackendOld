@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.urls import path
-from .views import AddFavourite, AddCategoryPreference, AddTypePlacePreference, ListFavourite, ListPreference, RegisterView, LoginView, UpdateCategoryPreference, UserView, LogoutView 
+from .views import AddFavourite, AddCategoryPreference, AddTypePlacePreference, ListFavourite, ListPreference, RegisterView, LoginView, UpdateCategoryPreference, UpdateTypePlacePreference, UserView, LogoutView 
 
 urlpatterns = [
     path('users/register/', RegisterView.as_view()),
@@ -12,5 +12,6 @@ urlpatterns = [
     path('users/preference/typeplace/create/', AddTypePlacePreference.as_view()),
     path('users/favourites/', ListFavourite.as_view()),
     path('users/preferences/', ListPreference.as_view()),
-    path('users/preference/category/update/', UpdateCategoryPreference.as_view())
+    path('users/preference/category/update/', UpdateCategoryPreference.as_view()),
+    path('users/preference/typeplace/update/', UpdateTypePlacePreference.as_view())
 ]

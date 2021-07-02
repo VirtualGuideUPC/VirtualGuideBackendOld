@@ -39,7 +39,6 @@ class PreferenceCategorySerializer(serializers.ModelSerializer):
         return instance
     
     def update(self, instance, validated_data):
-        print("Instance:", instance)
         instance.category = validated_data.get('category', instance.category)
         instance.user = validated_data.get('user', instance.user)
         instance.status = validated_data.get('status', instance.status)
@@ -55,27 +54,12 @@ class PreferenceTypePlaceSerializer(serializers.ModelSerializer):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
-
-
-class UpPreferenceTypePlaceSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PreferenceTypePlace
-        fields = ['type_place', 'user', 'status']
     
     def update(self, instance, validated_data):
-        instance = self.Meta.model(**validated_data)
-        instance.save()
-        return instance
-
-class UpPreferenceCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PreferenceCategory
-        fields = ['category', 'user', 'status']
-    
-    def update(self, instance, validated_data):
-        print("Instance:", instance)
-        instance.category = validated_data.get('category', instance.category)
+        instance.type_place = validated_data.get('category', instance.type_place)
         instance.user = validated_data.get('user', instance.user)
         instance.status = validated_data.get('status', instance.status)
         instance.save()
         return instance
+
+
