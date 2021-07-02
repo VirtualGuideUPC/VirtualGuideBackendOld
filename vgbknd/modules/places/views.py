@@ -108,7 +108,7 @@ class PictureTouristicPlaceListView(APIView):
 class NearbyPlaces(APIView):
     def post(self, request):
         touristicPlaces = TouristicPlace.objects.filter(type_place=1)
-        print('tipo real: ', type(touristicPlaces))
+        
         lat = request.data['latitude']
         lon = request.data['longitude']
 
