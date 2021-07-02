@@ -49,7 +49,7 @@ class CategoryTpSerializer(serializers.ModelSerializer):
         return obj.category.name
 
 class NearbyPlaceSerializer(serializers.ModelSerializer):
-    
+
     province_name = serializers.SerializerMethodField('get_province_name')
     picture = serializers.SerializerMethodField('get_picture')
 
@@ -62,9 +62,8 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
         return pname
     
     def get_picture(self, obj):
-        tp_id = obj.id 
-        tppicture = PictureTouristicPlace.objects.filter(touristic_place=tp_id).values('url')
-        print("Value: ", tppicture)
-        return str(tppicture)
+        tp_id = obj.id
+        print("Tp_id: ", tp_id)
+        return tp_id
     
  
