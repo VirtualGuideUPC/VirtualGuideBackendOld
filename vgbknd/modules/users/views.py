@@ -1,3 +1,4 @@
+from modules.places.models import Province
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
@@ -102,11 +103,12 @@ class ListFavourite(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         user_id = request.data['user']
+        department_id = request.data['department']
 
-        print("user_id: ", user_id)
-
+        provinces = Province.objects.filter(department=department_id)
+        print("Tipo: ", type(provinces))
         favouritePlaces = Favourite.objects.filter(user=user_id)
         for place in favouritePlaces:
-            print("Department: ", place.province)
+            print("Department: ", place)
         serializer = FavouriteSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
