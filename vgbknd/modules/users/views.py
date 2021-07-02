@@ -120,7 +120,7 @@ class ListFavourite(APIView):
 
 
 class ListCategoryPreference(APIView):
-    def get(self, request, pk):
+    def get(self, request):
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -131,13 +131,15 @@ class ListCategoryPreference(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        prcategory = PreferenceCategory.objects.filter(user=pk)
+        user_id = request.data['user']
+
+        prcategory = PreferenceCategory.objects.filter(user=user_id)
 
         serializer = PreferenceCategorySerializer(prcategory, many=True)
         return Response(serializer.data)
 
 class ListTypePlacePreference(APIView):
-    def get(self, request, pk):
+    def get(self, request):
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -147,8 +149,8 @@ class ListTypePlacePreference(APIView):
             payload = jwt.decode(token, 'secret', algorithms=['HS256'])
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
-
-        prtypeplace = PreferenceTypePlace.objects.filter(user=pk, touristic_place__province__department = department_id)
+        user_id = request.data['user']
+        prtypeplace = PreferenceTypePlace.objects.filter(user=user_id)
 
         serializer = PreferenceTypePlaceSerializer(prtypeplace, many=True)
         return Response(serializer.data)
