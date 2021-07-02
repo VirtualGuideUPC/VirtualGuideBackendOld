@@ -1,3 +1,4 @@
+from vgbknd.modules.places.serializers import NearbyPlaceSerializer
 from rest_framework import serializers
 from .models import *
 
@@ -29,11 +30,11 @@ class FavouriteSerializer(serializers.ModelSerializer):
         return instance
 
 class FavouriteTpSerializer(serializers.ModelSerializer):
-    tp = serializers.SerializerMethodField('get_tp')
+    touristic_place_detail = serializers.SerializerMethodField('get_tp')
 
     class Meta:
         model = Favourite
-        fields = [ 'user', 'tp']
+        fields = [ 'user', 'touristic_place_detail']
     
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
@@ -41,9 +42,10 @@ class FavouriteTpSerializer(serializers.ModelSerializer):
         return instance
 
     def get_tp(self, obj):
-        tp = obj.touristic_place
-        print("Valor: ", tp)
-        return str(tp)
+        tp = obj.touristic_place.touristicplace_id
+        tplace = TouristicPlace.objects.filter(touristicplace_id=tp).first()
+        serializer = NearbyPlaceSerializer(tplace)
+        return str(serializer)
 
 class PreferenceCategorySerializer(serializers.ModelSerializer):
     class Meta:
