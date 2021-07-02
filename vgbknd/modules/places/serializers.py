@@ -49,14 +49,15 @@ class CategoryTpSerializer(serializers.ModelSerializer):
         return obj.category.name
 
 class NearbyPlaceSerializer(serializers.ModelSerializer):
- 
+    
+    province_name = serializers.SerializerMethodField('get_province_name')
+    
     class Meta:
         model = TouristicPlace
         fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'tp_range', 'province_name', 'avg_ranking', 'number_comments'] 
 
     def get_province_name(self, obj):
         pname = obj.province.name
-        print("Tipo: ", type(pname))
         return pname
     
  
