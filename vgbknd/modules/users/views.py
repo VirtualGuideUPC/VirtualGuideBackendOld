@@ -1,3 +1,4 @@
+from django.http import response
 from modules.places.models import Province
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -119,7 +120,7 @@ class ListFavourite(APIView):
         return Response(serializer.data)
 
 
-class ListCategoryPreference(APIView):
+class ListPreference(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -135,8 +136,18 @@ class ListCategoryPreference(APIView):
 
         prcategory = PreferenceCategory.objects.filter(user=user_id)
 
-        serializer = PreferenceCategorySerializer(prcategory, many=True)
-        return Response(serializer.data)
+        catserializer = PreferenceCategorySerializer(prcategory, many=True)
+        
+        prtypeplace = PreferenceTypePlace.objects.filter(user=user_id)
+
+        tpserializer = PreferenceTypePlaceSerializer(prtypeplace, many=True)
+        response = Response()
+
+        response.data = {
+            'categories': catserializer.data,
+            'typeplaces': tpserializer.data
+        }
+        return response
 
 class ListTypePlacePreference(APIView):
     def get(self, request):
