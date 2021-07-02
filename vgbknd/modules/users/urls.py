@@ -12,5 +12,5 @@ urlpatterns = [
     path('users/preference/typeplace/create/', AddTypePlacePreference.as_view()),
     path('users/favourites/', ListFavourite.as_view()),
     path('users/preferences/', ListPreference.as_view()),
-    path('users/preference/category/update', UpdateCategoryPreference.as_view())
+    path('users/preference/category/update/', UpdateCategoryPreference.as_view())
 ]
