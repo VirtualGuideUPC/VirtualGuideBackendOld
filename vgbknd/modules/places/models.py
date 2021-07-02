@@ -46,6 +46,7 @@ class PictureTouristicPlace(models.Model):
 class Category(models.Model):
     category_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
+    icon = models.CharField(max_length=255, default='None')
 
 
 class TouristicPlaceCategory(models.Model):

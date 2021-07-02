@@ -37,10 +37,10 @@ class PreferenceCategory(models.Model):
     preference_category_id = models.AutoField(primary_key=True)
     category = models.ForeignKey(Category, null=False, blank=False, default=1, on_delete=models.CASCADE)    
     user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)
-    picture = models.CharField(max_length=255, default='None')
+    status = models.BooleanField(default=False)
 
 class PreferenceTypePlace(models.Model):
     preference_typeplace_id = models.AutoField(primary_key=True)
     type_place = models.ForeignKey(TypePlace, null=False, blank=False, default=1, on_delete=models.CASCADE)    
-    user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)        
-    picture = models.CharField(max_length=255, default='None')
+    user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)   
+    status = models.BooleanField(default=False)      
