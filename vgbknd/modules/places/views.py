@@ -2,7 +2,7 @@ from .services import PlaceService
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import CategoryTpSerializer, TouristicPlaceCategorySerializer, TouristicPlaceSerializer, PictureTouristicPlaceSerializer
+from .serializers import CategoryTpSerializer, NearbyPlaceSerializer, TouristicPlaceCategorySerializer, TouristicPlaceSerializer, PictureTouristicPlaceSerializer
 from .models import *
 from modules.reviews.models import Review
 from modules.reviews.serializers import ReviewTpSerializer
@@ -116,8 +116,6 @@ class NearbyPlaces(APIView):
         
         tplist = placeService.tpnearbylist(touristicPlaces)
         
-        serializer = TouristicPlaceSerializer(tplist, many=True)
-
-        print('tipo final: ', type(serializer.data))
-
+        serializer = NearbyPlaceSerializer(tplist, many=True)
+        
         return Response(serializer.data)

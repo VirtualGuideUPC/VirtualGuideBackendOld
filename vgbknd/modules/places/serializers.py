@@ -21,7 +21,7 @@ class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
-    
+
 class TouristicPlaceCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = TouristicPlaceCategory
@@ -42,3 +42,13 @@ class CategoryTpSerializer(serializers.ModelSerializer):
 
     def get_name(self, obj):
         return obj.category.name
+
+class NearbyPlaceSerializer(serializers.ModelSerializer):
+    province_name = serializers.SerializerMethodField('get_province_name')
+
+    class Meta:
+        model = TouristicPlace
+        fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'tp_range', 'province_name', 'avg_ranking', 'number_comments'] 
+
+    def get_province_name(self, obj):
+        return obj.province.name
