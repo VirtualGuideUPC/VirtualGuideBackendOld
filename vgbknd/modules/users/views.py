@@ -180,6 +180,7 @@ class UpdateCategoryPreference(APIView):
         user_id = request.data['user']
         cat = request.data['category']
         prtypeplace = PreferenceCategory.objects.filter(user=user_id, category=cat).first()
+        print("Category: ", prtypeplace)
         serializer = UpPreferenceCategorySerializer(prtypeplace, data=request.data)
         serializer.save()
         return Response(serializer.data)
