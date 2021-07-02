@@ -45,7 +45,7 @@ class FavouriteTpSerializer(serializers.ModelSerializer):
         tp = obj.touristic_place.touristicplace_id
         tplace = TouristicPlace.objects.filter(touristicplace_id=tp).first()
         serializer = NearbyPlaceSerializer(tplace)
-        return str(serializer)
+        return serializer.data
 
 class PreferenceCategorySerializer(serializers.ModelSerializer):
     class Meta:
