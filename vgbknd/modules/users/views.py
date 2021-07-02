@@ -7,6 +7,7 @@ from .serializers import AccountSerializer, FavouriteSerializer, PreferenceCateg
 from .models import *
 import jwt   
 import datetime
+from rest_framework import status
 
 # Create your views here.
 
@@ -182,5 +183,7 @@ class UpdateCategoryPreference(APIView):
         prtypeplace = PreferenceCategory.objects.filter(user=user_id, category=cat).first()
         print("Category: ", prtypeplace)
         serializer = PreferenceCategorySerializer(prtypeplace, data=request.data)
-        serializer.save()
-        return Response(serializer.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
