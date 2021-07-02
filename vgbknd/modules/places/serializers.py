@@ -21,7 +21,7 @@ class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
-
+    
 class TouristicPlaceCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = TouristicPlaceCategory
