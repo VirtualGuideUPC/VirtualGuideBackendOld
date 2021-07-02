@@ -22,6 +22,11 @@ class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class PictureTpUrlSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PictureTouristicPlace
+        fields = ['url'] 
+
 class TouristicPlaceCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = TouristicPlaceCategory
@@ -56,4 +61,5 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
     def get_picture(self, obj):
         tp_id = obj.id
         tppicture = PictureTouristicPlace.objects.filter(touristic_place=tp_id).first()
-        return tppicture.url
+        picture_serializer = PictureTpUrlSerializer(tppicture)
+        return picture_serializer
