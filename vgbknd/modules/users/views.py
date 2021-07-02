@@ -2,7 +2,7 @@ from modules.places.models import Province
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, FavouriteSerializer, PreferenceCategorySerializer
+from .serializers import AccountSerializer, FavouriteSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
 from .models import *
 import jwt   
 import datetime
@@ -16,9 +16,16 @@ class RegisterView(APIView):
         serializer.save()
         return Response(serializer.data)
 
-class AddPreference(APIView):
+class AddCategoryPreference(APIView):
     def post(self, request):
         serializer = PreferenceCategorySerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+class AddTypePlacePreference(APIView):
+    def post(self, request):
+        serializer = PreferenceTypePlaceSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data)
@@ -109,4 +116,39 @@ class ListFavourite(APIView):
         favouritePlaces = Favourite.objects.filter(user=user_id, touristic_place__province__department = department_id)
 
         serializer = FavouriteSerializer(favouritePlaces, many=True)
+        return Response(serializer.data)
+
+
+class ListCategoryPreference(APIView):
+    def get(self, request, pk):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        prcategory = PreferenceCategory.objects.filter(user=pk)
+
+        serializer = PreferenceCategorySerializer(prcategory, many=True)
+        return Response(serializer.data)
+
+class ListTypePlacePreference(APIView):
+    def get(self, request, pk):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        prtypeplace = PreferenceTypePlace.objects.filter(user=pk, touristic_place__province__department = department_id)
+
+        serializer = PreferenceTypePlaceSerializer(prtypeplace, many=True)
         return Response(serializer.data)
