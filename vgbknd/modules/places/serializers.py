@@ -62,7 +62,7 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
         return pname
     
     def get_picture(self, obj):
-        tp_id = obj.id
+        tp_id = obj.touristicplace_id
         return tp_id
     
  
