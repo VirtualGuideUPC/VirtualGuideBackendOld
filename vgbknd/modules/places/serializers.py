@@ -64,8 +64,7 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
     def get_picture(self, obj):
         tp_id = obj.touristicplace_id
         tppicture = PictureTouristicPlace.objects.filter(touristic_place=tp_id).values('url').first()
-        for tp in tppicture:
-            pictureurl = tp['url']
+        pictureurl = tppicture['url']
 
         return str(pictureurl)
     
