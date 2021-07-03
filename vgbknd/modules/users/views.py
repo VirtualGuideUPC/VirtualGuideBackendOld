@@ -137,6 +137,8 @@ class ListFavouriteDepartment(APIView):
 
         departments = Department.objects.filter(department_id__in=department_list)
 
+        print("Depart: ", departments)
+
         serializer = DepartmentSerializer(departments, many=True)
         return Response(serializer.data)
 
