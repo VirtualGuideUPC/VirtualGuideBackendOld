@@ -100,7 +100,7 @@ class AddFavourite(APIView):
         serializer.save()
         return Response(serializer.data) 
 
-class ListFavourite(APIView):
+class ListFavouriteDepartment(APIView):
     def get(self, request):
         token = request.COOKIES.get('jwt')
 
@@ -120,7 +120,7 @@ class ListFavourite(APIView):
         serializer = FavouriteTpSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
 
-class ListFavouriteDepartment(APIView):
+class ListFavourite(APIView):
     def get(self, request, pk, pk2):
         token = request.COOKIES.get('jwt')
 
