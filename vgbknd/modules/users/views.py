@@ -1,9 +1,9 @@
 from django.http import response
-from modules.places.models import Province
+from modules.places.models import Province, Department, TouristicPlace
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
+from .serializers import AccountSerializer, DepartmentSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
 from .models import *
 import jwt   
 import datetime
@@ -118,14 +118,24 @@ class ListFavouriteDepartment(APIView):
         
         for e in favouritePlaces:
             id_list.append(e)
+
+        tp = TouristicPlace.objects.filter(touristicplace_id__in=id_list).values_list('province', flat=True)
+
+        province_list = []
+
+        for p in tp:
+            province_list.append(p)
+
+        provinces = Province.objects.filter(province_id__in=province_list).values_list('department', flat=True)
+
+        department_list = []
         
-        print("arreglo", id_list)
+        for d in provinces:
+            department_list.append(d)
 
-        tp = TouristicPlace.objects.filter(touristicplace_id__in=id_list)
+        departments = Department.objects.filter(department_id__in=department_list)
 
-        print("Tp: ", tp)
-
-        serializer = FavouriteTpSerializer(favouritePlaces, many=True)
+        serializer = DepartmentSerializer(departments, many=True)
         return Response(serializer.data)
 
 class ListFavourite(APIView):
