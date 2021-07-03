@@ -1,3 +1,4 @@
+from modules.places.models import Department
 from modules.places.serializers import NearbyPlaceSerializer
 from rest_framework import serializers
 from .models import *
@@ -18,6 +19,11 @@ class AccountSerializer(serializers.ModelSerializer):
             instance.set_password(password)
         instance.save()
         return instance
+
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = ['id', 'name', 'photo']
 
 class FavouriteSerializer(serializers.ModelSerializer):
     class Meta:

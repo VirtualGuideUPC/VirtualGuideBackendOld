@@ -101,7 +101,7 @@ class AddFavourite(APIView):
         return Response(serializer.data) 
 
 class ListFavouriteDepartment(APIView):
-    def get(self, request):
+    def get(self, request, pk):
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -112,10 +112,8 @@ class ListFavouriteDepartment(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        user_id = request.data['user']
-        department_id = request.data['department']
-
-        favouritePlaces = Favourite.objects.filter(user=user_id, touristic_place__province__department = department_id)
+        favouritePlaces = Favourite.objects.filter(user=pk).values_list('touristic_pace_id', flat=True)
+        print('Fp: ', favouritePlaces)
 
         serializer = FavouriteTpSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
