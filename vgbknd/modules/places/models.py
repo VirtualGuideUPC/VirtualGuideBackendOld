@@ -11,11 +11,13 @@ class TypePlace(models.Model):
 class Department(models.Model):
     department_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
+    photo = models.CharField(max_length=255, default="")
 
 class Province(models.Model):
     province_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     department = models.ForeignKey(Department, null=False, blank=False, default=1, on_delete=models.CASCADE)
+    photo = models.CharField(max_length=255, default="")
 
 class TouristicPlace(models.Model):
     touristicplace_id = models.AutoField(primary_key=True)
