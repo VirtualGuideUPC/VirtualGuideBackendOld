@@ -121,9 +121,9 @@ class ListFavouriteDepartment(APIView):
         
         print("arreglo", id_list)
 
-        tp = TouristicPlace.objects.in_bulk(id_list, field_name='touristicplace_id')
+        tp = TouristicPlace.objects.filter(touristicplace_id__in=id_list)
 
-        print("Tp: ", type(tp))
+        print("Tp: ", tp)
 
         serializer = FavouriteTpSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
