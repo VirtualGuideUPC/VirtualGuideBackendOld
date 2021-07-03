@@ -123,7 +123,7 @@ class ListFavouriteDepartment(APIView):
 
         tp = TouristicPlace.objects.in_bulk(id_list, field_name='touristicplace_id')
 
-        print("Tp: ", tp)
+        print("Tp: ", type(tp))
 
         serializer = FavouriteTpSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
