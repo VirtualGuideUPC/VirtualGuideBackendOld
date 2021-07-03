@@ -133,6 +133,8 @@ class ListFavouriteDepartment(APIView):
         for d in provinces:
             department_list.append(d)
 
+        print("DL: ", department_list)
+
         departments = Department.objects.filter(department_id__in=department_list)
 
         serializer = DepartmentSerializer(departments, many=True)
