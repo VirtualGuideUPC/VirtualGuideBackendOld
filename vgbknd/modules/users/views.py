@@ -113,7 +113,13 @@ class ListFavouriteDepartment(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         favouritePlaces = Favourite.objects.filter(user=pk).values('touristic_place')
-        print('Fp: ', favouritePlaces)
+        
+        a = []
+        
+        for e in favouritePlaces:
+            a.append(e)
+        
+        print("arreglo", a)
 
         serializer = FavouriteTpSerializer(favouritePlaces, many=True)
         return Response(serializer.data)
