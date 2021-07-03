@@ -117,7 +117,7 @@ class ListFavouriteDepartment(APIView):
         a = []
         
         for e in favouritePlaces:
-            a.append(e)
+            a.append(e.touristic_place)
         
         print("arreglo", a)
 
