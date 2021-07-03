@@ -20,11 +20,6 @@ class AccountSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-class DepartmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Department
-        fields = ['id', 'name', 'photo']
-
 class FavouriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favourite

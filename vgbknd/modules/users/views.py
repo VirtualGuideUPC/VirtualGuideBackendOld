@@ -1,9 +1,10 @@
+from modules.places.serializers import DepartmentSerializer
 from django.http import response
 from modules.places.models import Province, Department, TouristicPlace
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, DepartmentSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
+from .serializers import AccountSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
 from .models import *
 import jwt   
 import datetime

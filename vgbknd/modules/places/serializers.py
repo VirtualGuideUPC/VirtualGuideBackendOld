@@ -11,6 +11,16 @@ class TouristicPlaceSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+class DepartmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Department
+        fields = ['department_id', 'name', 'photo']
+
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
 
 class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
     class Meta:
