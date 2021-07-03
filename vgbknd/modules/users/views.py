@@ -112,7 +112,7 @@ class ListFavouriteDepartment(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        favouritePlaces = Favourite.objects.filter(user=pk).values_list('touristic_place', flat=True)
+        favouritePlaces = Favourite.objects.filter(user=pk).values('touristic_place')
         print('Fp: ', favouritePlaces)
 
         serializer = FavouriteTpSerializer(favouritePlaces, many=True)
