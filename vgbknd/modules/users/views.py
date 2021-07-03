@@ -114,14 +114,14 @@ class ListFavouriteDepartment(APIView):
 
         favouritePlaces = Favourite.objects.filter(user=pk).values_list('touristic_place', flat=True)
         
-        a = []
+        id_list = []
         
         for e in favouritePlaces:
-            a.append(e)
+            id_list.append(e)
         
-        print("arreglo", a)
+        print("arreglo", id_list)
 
-        tp = TouristicPlace.objects.filter(touristicplace_id=a)
+        tp = TouristicPlace.objects.in_bulk(id_list, field_name='touristicplace_id')
 
         print("Tp: ", tp)
 
