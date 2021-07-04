@@ -67,10 +67,14 @@ class TouristicPlaceById(APIView):
         review_count = Review.objects.filter(touristic_place=pk).count()
         
         review_avg = Review.objects.filter(touristic_place=pk).aggregate(Avg('ranking'))
+        
+        fin_avg1 = review_avg.get("ranking_avg")
+        fin_avg2 = review_avg.get('ranking_avg')
 
-        fin_avg = review_avg.get("ranking_avg")
+        print('review_avg: ', review_avg)
 
-        print('review_avg: ', fin_avg)
+        print('review_avg: ', fin_avg1)
+        print('review_avg: ', fin_avg2)
 
         reviewsSerializer = ReviewTpSerializer(reviews, many=True)
         
