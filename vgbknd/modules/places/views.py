@@ -73,6 +73,8 @@ class TouristicPlaceById(APIView):
         simExp1 = TouristicPlace.objects.filter(type_place=touristicPlace.type_place).exclude(touristicplace_id=pk)
         categories = TouristicPlaceCategory.objects.filter(touristic_place=pk).values_list('category', flat=True)
         
+        print('Exp1: ',simExp1)
+
         cat_list = []
         
         for c in categories:
@@ -89,7 +91,11 @@ class TouristicPlaceById(APIView):
 
         simExp2 = TouristicPlace.objects.filter(touristic_place__in=setps)
 
+        print('Exp2: ',simExp2)
+
         simExpFinal = simExp1 | simExp2
+
+        print('Exp: ',simExpFinal)
 
 
         simExpSer = NearbyPlaceSerializer(simExpFinal, many=True)
