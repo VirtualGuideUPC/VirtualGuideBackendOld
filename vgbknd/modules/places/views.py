@@ -109,7 +109,7 @@ class TouristicPlaceById(APIView):
             'categories': categorystpSerializer.data,
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
-            'avg_ranking': review_avg.ranking_avg,
+            'avg_ranking': touristicPlace.avg_ranking,
             'number_comments': review_count,
             'reviews': reviewsSerializer.data,
             'similarExperiences': simExpSer.data,
