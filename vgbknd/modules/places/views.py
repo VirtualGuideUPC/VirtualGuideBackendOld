@@ -89,7 +89,7 @@ class TouristicPlaceById(APIView):
             setps.append(t)
 
 
-        simExp2 = TouristicPlace.objects.filter(touristicplace_id__in=setps)
+        simExp2 = TouristicPlace.objects.filter(touristicplace_id__in=setps).exclude(touristicplace_id=pk)
 
         print('Exp2: ',simExp2)
 

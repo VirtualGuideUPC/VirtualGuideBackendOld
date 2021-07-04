@@ -86,7 +86,7 @@ class NearbyPlaceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TouristicPlace
-        fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'picture','tp_range', 'province_name', 'avg_ranking', 'number_comments'] 
+        fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'picture','tp_range', 'province_name', 'avg_ranking', 'number_comments', 'isFavourite'] 
 
     def get_province_name(self, obj):
         pname = obj.province.name
