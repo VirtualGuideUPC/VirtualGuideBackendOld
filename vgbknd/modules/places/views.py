@@ -6,6 +6,7 @@ from .serializers import CategoryTpSerializer, NearbyPlaceSerializer, TouristicP
 from .models import *
 from modules.reviews.models import Review
 from modules.reviews.serializers import ReviewTpSerializer
+from django.db.models import Avg
 import jwt
 
 # Create your views here.
@@ -64,8 +65,11 @@ class TouristicPlaceById(APIView):
         reviews = Review.objects.filter(touristic_place=pk)
 
         review_count = Review.objects.filter(touristic_place=pk).count()
-
+        
+        review_avg = Review.objects.filter(touristic_place=pk).aggregate(Avg('ranking')).values()[0]
        
+        print('review_avg: ', review_avg)
+
         reviewsSerializer = ReviewTpSerializer(reviews, many=True)
         
         response = Response()
@@ -75,6 +79,8 @@ class TouristicPlaceById(APIView):
         
 
         cat_list = []
+
+
         
         for c in categories:
             cat_list.append(c)
