@@ -70,7 +70,7 @@ class TouristicPlaceById(APIView):
         
         response = Response()
 
-        simExp = TouristicPlace.objects.filter(type_place=touristicPlace.type_place)
+        simExp = TouristicPlace.objects.filter(type_place=touristicPlace.type_place).exclude(touristicplace_id=pk)
 
         simExpSer = NearbyPlaceSerializer(simExp, many=True)
 
