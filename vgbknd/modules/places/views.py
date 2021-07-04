@@ -70,6 +70,10 @@ class TouristicPlaceById(APIView):
         
         response = Response()
 
+        simExp = TouristicPlace.objects.filter(type_place=touristicPlace.type_place)
+
+        simExpSer = NearbyPlaceSerializer(simExp, many=True)
+
         response.data = {
             'pictures': picturesSerializer.data,
             'name': touristicPlace.name,
@@ -80,6 +84,7 @@ class TouristicPlaceById(APIView):
             'avg_ranking': touristicPlace.avg_ranking,
             'number_comments': touristicPlace.number_comments,
             'reviews': reviewsSerializer.data,
+            'similarExperiences': simExpSer.data,
             'isFavourite': touristicPlace.isFavourite
         }
         return response
