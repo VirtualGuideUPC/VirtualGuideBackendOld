@@ -68,13 +68,9 @@ class TouristicPlaceById(APIView):
         
         review_avg = Review.objects.filter(touristic_place=pk).aggregate(Avg('ranking'))
         
-        fin_avg1 = review_avg.get("ranking__avg")
-        fin_avg2 = review_avg.get('ranking__avg')
+        fin_avg = review_avg.get('ranking__avg')
 
         print('review_avg: ', review_avg)
-
-        print('review_avg: ', fin_avg1)
-        print('review_avg: ', fin_avg2)
 
         reviewsSerializer = ReviewTpSerializer(reviews, many=True)
         
@@ -115,7 +111,7 @@ class TouristicPlaceById(APIView):
             'categories': categorystpSerializer.data,
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
-            'avg_ranking': touristicPlace.avg_ranking,
+            'avg_ranking': fin_avg,
             'number_comments': review_count,
             'reviews': reviewsSerializer.data,
             'similarExperiences': simExpSer.data,
