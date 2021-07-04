@@ -80,7 +80,6 @@ class TouristicPlaceById(APIView):
             'avg_ranking': touristicPlace.avg_ranking,
             'number_comments': touristicPlace.number_comments,
             'reviews': reviewsSerializer.data,
-            'similarExperiences': [],
             'isFavourite': touristicPlace.isFavourite
         }
         return response
