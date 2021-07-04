@@ -63,7 +63,9 @@ class TouristicPlaceById(APIView):
         
         reviews = Review.objects.filter(touristic_place=pk)
 
+        review_count = Review.objects.filter(touristic_place=pk).count()
 
+        print("count: ", review_count)
 
        
         reviewsSerializer = ReviewTpSerializer(reviews, many=True)

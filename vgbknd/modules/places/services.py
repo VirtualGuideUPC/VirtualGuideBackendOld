@@ -42,3 +42,4 @@ class PlaceService:
 
         return list
 
+
