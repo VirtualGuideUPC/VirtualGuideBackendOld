@@ -70,9 +70,29 @@ class TouristicPlaceById(APIView):
         
         response = Response()
 
-        simExp = TouristicPlace.objects.filter(type_place=touristicPlace.type_place).exclude(touristicplace_id=pk)
+        simExp1 = TouristicPlace.objects.filter(type_place=touristicPlace.type_place).exclude(touristicplace_id=pk)
+        categories = TouristicPlaceCategory.objects.filter(touristic_place=pk).values_list('category', flat=True)
+        
+        cat_list = []
+        
+        for c in categories:
+            cat_list.append(c)
+        
+        
+        cTp = TouristicPlaceCategory.objects.filter(category__in=cat_list).values_list('touristic_place', flat=True)
+        
+        setps = []
+        
+        for t in cTp:
+            setps.append(t)
 
-        simExpSer = NearbyPlaceSerializer(simExp, many=True)
+
+        simExp2 = TouristicPlace.objects.filter(touristic_place__in=setps)
+
+        simExpFinal = simExp1 | simExp2
+
+
+        simExpSer = NearbyPlaceSerializer(simExpFinal, many=True)
 
         response.data = {
             'pictures': picturesSerializer.data,
