@@ -37,6 +37,7 @@ class TouristicPlace(models.Model):
     province = models.ForeignKey(Province, null=False, blank=False, default=1, on_delete=models.CASCADE)
     type_place = models.ForeignKey(TypePlace, null=False, blank=False, default=1, on_delete=models.CASCADE)
     status = models.IntegerField(default=1)
+    isFavourite = models.BooleanField(default=False)
 
 class PictureTouristicPlace(models.Model):
     ptouristicplace_id = models.AutoField(primary_key=True)

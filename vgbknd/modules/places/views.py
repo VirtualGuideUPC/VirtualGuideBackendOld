@@ -62,6 +62,9 @@ class TouristicPlaceById(APIView):
 
         
         reviews = Review.objects.filter(touristic_place=pk)
+
+
+
        
         reviewsSerializer = ReviewTpSerializer(reviews, many=True)
         
@@ -76,7 +79,9 @@ class TouristicPlaceById(APIView):
             'longitude': touristicPlace.longitude,
             'avg_ranking': touristicPlace.avg_ranking,
             'number_comments': touristicPlace.number_comments,
-            'reviews': reviewsSerializer.data
+            'reviews': reviewsSerializer.data,
+            'similarExperiences': [],
+            'isFavourite': touristicPlace.isFavourite
         }
         return response
 

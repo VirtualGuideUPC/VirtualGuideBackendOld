@@ -4,12 +4,33 @@ from .models import *
 class TouristicPlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = TouristicPlace
-        fields = ['name', 'cost_info', 'price', 'schedule_info', 'historic_info', 'long_info', 'short_info', 'activities_info', 'latitude', 'longitude', 'tp_range', 'province', 'type_place'] 
+        fields = ['name', 'cost_info', 'price', 'schedule_info', 'historic_info', 'long_info', 'short_info', 'activities_info', 'latitude', 'longitude', 'tp_range', 'province', 'type_place', 'isFavourite'] 
     
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
+
+class TPSerializer(serializers.ModelSerializer):
+    province_name = serializers.SerializerMethodField('get_province_name')
+    picture = serializers.SerializerMethodField('get_picture')
+    class Meta:
+        model = TouristicPlace
+        fields = ['touristicplace_id', 'name', 'short_info', 'latitude', 'longitude', 'picture','tp_range', 'province_name', 'avg_ranking', 'number_comments', 'isFavourite'] 
+    
+    def create(self, validated_data):
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
+    def get_province_name(self, obj):
+        pname = obj.province.name
+        return pname
+    
+    def get_picture(self, obj):
+        tp_id = obj.touristicplace_id
+        tppicture = PictureTouristicPlace.objects.filter(touristic_place=tp_id).values_list('url', flat=True).first()
+        return str(tppicture)  
 
 class DepartmentSerializer(serializers.ModelSerializer):
     class Meta:
