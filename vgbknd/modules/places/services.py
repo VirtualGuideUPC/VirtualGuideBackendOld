@@ -7,9 +7,7 @@ class PlaceService:
 
     def distance(self, lat1, lon1, lat2, lon2):
         R = 6373.0
-        print('entre')
-        print('lat1: ', lat1, type(lat1))
-        print('lat2: ', lat2, type(lat2))
+        
         lat1 = math.radians(lat1)
         lon1 = math.radians(lon1)
         lat2 = math.radians(lat2)
@@ -20,7 +18,6 @@ class PlaceService:
         dlon = lon2 - lon1
         dlat = lat2 - lat1
 
-        print('dlon: ', dlon)
 
         a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
@@ -33,12 +30,12 @@ class PlaceService:
         list = []
  
         for tp in tplist:
-            print ('tp latitude: ', tp.latitude)
+
             d = self.distance(self.lat, self.lon, float(tp.latitude), float(tp.longitude))
-            print('distancia: ', d)
+ 
             if d < 3:
                 list.append(tp)
-                print('object: ', tp, type(tp))
+               
 
         return list
 
