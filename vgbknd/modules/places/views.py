@@ -65,8 +65,6 @@ class TouristicPlaceById(APIView):
 
         review_count = Review.objects.filter(touristic_place=pk).count()
 
-        print("count: ", review_count)
-
        
         reviewsSerializer = ReviewTpSerializer(reviews, many=True)
         
@@ -75,7 +73,6 @@ class TouristicPlaceById(APIView):
         simExp1 = TouristicPlace.objects.filter(type_place=touristicPlace.type_place).exclude(touristicplace_id=pk)
         categories = TouristicPlaceCategory.objects.filter(touristic_place=pk).values_list('category', flat=True)
         
-        print('Exp1: ',simExp1)
 
         cat_list = []
         
@@ -93,11 +90,8 @@ class TouristicPlaceById(APIView):
 
         simExp2 = TouristicPlace.objects.filter(touristicplace_id__in=setps).exclude(touristicplace_id=pk)
 
-        print('Exp2: ',simExp2)
 
         simExpFinal = simExp1 | simExp2
-
-        print('Exp: ',simExpFinal)
 
 
         simExpSer = NearbyPlaceSerializer(simExpFinal, many=True)
@@ -110,7 +104,7 @@ class TouristicPlaceById(APIView):
             'latitude': touristicPlace.latitude,
             'longitude': touristicPlace.longitude,
             'avg_ranking': touristicPlace.avg_ranking,
-            'number_comments': touristicPlace.number_comments,
+            'number_comments': review_count,
             'reviews': reviewsSerializer.data,
             'similarExperiences': simExpSer.data,
             'isFavourite': touristicPlace.isFavourite
