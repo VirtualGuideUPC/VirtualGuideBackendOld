@@ -1,3 +1,4 @@
+
 from modules.users.models import Account
 from modules.places.models import TouristicPlace
 from django.db import models
@@ -14,6 +15,8 @@ class Review(models.Model):
 
 class PictureReview(models.Model):
     preview_id = models.AutoField(primary_key=True)
+    image = models.ImageField('image')
     url = models.CharField(max_length=300)
     number = models.IntegerField()
-    review = models.ForeignKey(Review, null=False, blank=False, default=1, on_delete=models.CASCADE)  
+    review = models.ForeignKey(Review, null=False, blank=False, default=1, on_delete=models.CASCADE)
+

@@ -1,7 +1,7 @@
 from modules.places.serializers import TouristicPlaceSerializer
 from modules.places.models import TouristicPlace
 from rest_framework.views import APIView
-from .serializers import ReviewSerializer
+from .serializers import ReviewSerializer, PictureReviewSerializer
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 import jwt
@@ -13,8 +13,29 @@ class CreateReview(APIView):
         serializer = ReviewSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        
+
+        review_id = serializer.data['review_id']
+
+        if 'image' not in request.FILES:
+            images = []
+        else:
+            images = dict(request.FILES.lists())['image']
+
+        arr_img = []
+        for img in images:
+            data = img.file
+            arr_img.append(data)
+
+        number_images = len(arr_img)
+        if len(arr_img) > 0:
+            for n in range(0, number_images):
+                aux = dict({"image": images[n], "number": n + 1, "review": review_id})
+                serializer_picture = PictureReviewSerializer(data=aux)
+                serializer_picture.is_valid(raise_exception=True)
+                serializer_picture.save()
+
         return Response(serializer.data)
+
 
 class ReviewTouristicPlaceListView(APIView):
     def get(self, request, pk):
