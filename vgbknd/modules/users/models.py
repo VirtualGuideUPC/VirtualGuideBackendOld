@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from modules.places.models import TypePlace, TouristicPlace, Category
+from modules.places.models import TypePlace, TouristicPlace, Category, SubCategory
 from django.db.models.fields.related import ForeignKey
 
 # Create your models here.
@@ -43,4 +43,10 @@ class PreferenceTypePlace(models.Model):
     preference_typeplace_id = models.AutoField(primary_key=True)
     type_place = models.ForeignKey(TypePlace, null=False, blank=False, default=1, on_delete=models.CASCADE)    
     user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)   
-    status = models.BooleanField(default=False)      
+    status = models.BooleanField(default=False)
+
+class PreferenceSubCategory(models.Model):
+    preference_subcategory_id = models.AutoField(primary_key=True)
+    subcategory = models.ForeignKey(SubCategory, null=False, blank=False, default=1, on_delete=models.CASCADE)
+    user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)
+    status = models.BooleanField(default=False)

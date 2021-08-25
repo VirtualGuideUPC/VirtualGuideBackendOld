@@ -8,6 +8,17 @@ class TypePlace(models.Model):
     name = models.CharField(max_length=50)
     icon = models.CharField(max_length=255)
 
+class Category(models.Model):
+    category_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100)
+    icon = models.CharField(max_length=255, default='None')
+
+class SubCategory(models.Model):
+    subcategory_id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=50)
+    icon = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, null=False, blank=False, default=1, on_delete=models.CASCADE)
+
 class Department(models.Model):
     department_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
@@ -46,10 +57,7 @@ class PictureTouristicPlace(models.Model):
     touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, default=1, on_delete=models.CASCADE)
 
 
-class Category(models.Model):
-    category_id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=100)
-    icon = models.CharField(max_length=255, default='None')
+
 
 
 class TouristicPlaceCategory(models.Model):
