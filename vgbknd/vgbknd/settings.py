@@ -45,8 +45,7 @@ INSTALLED_APPS = [
     'modules.users',
     'modules.places',
     'modules.reviews',
-    'cloudinary',
-    'Pillow'
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
