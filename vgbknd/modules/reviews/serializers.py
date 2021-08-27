@@ -38,3 +38,28 @@ class PictureReviewSerializer(serializers.ModelSerializer):
         instance.url = res['secure_url']
         instance.save()
         return instance
+
+class PictureReviewTpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PictureReview
+        fields = ['url', 'number']
+
+
+class TotalReviewSerializer(serializers.ModelSerializer):
+    images = serializers.SerializerMethodField('get_images')
+    user_name = serializers.SerializerMethodField('get_user_name')
+
+    class Meta:
+        model = Review
+        fields = ['review_id', 'user_name', 'date', 'comment', 'ranking', 'images']
+
+    def get_images(self,obj):
+        if PictureReview.objects.filter(review=obj.review_id).exists():
+            qs = PictureReview.objects.filter(review=obj.review_id)
+            serializer = PictureReviewTpSerializer(instance=qs, many=True)
+            return serializer.data
+        else:
+            return []
+
+    def get_user_name(self, obj):
+        return obj.user.name

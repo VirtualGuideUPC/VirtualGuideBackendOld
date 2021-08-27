@@ -5,7 +5,7 @@ from rest_framework.exceptions import AuthenticationFailed
 from .serializers import CategoryTpSerializer, NearbyPlaceSerializer, TouristicPlaceCategorySerializer, TouristicPlaceSerializer, PictureTouristicPlaceSerializer
 from .models import *
 from modules.reviews.models import Review
-from modules.reviews.serializers import ReviewTpSerializer
+from modules.reviews.serializers import ReviewTpSerializer, TotalReviewSerializer
 from django.db.models import Avg
 import jwt
 
@@ -72,8 +72,9 @@ class TouristicPlaceById(APIView):
 
         print('review_avg: ', review_avg)
 
-        reviewsSerializer = ReviewTpSerializer(reviews, many=True)
-        
+        #reviewsSerializer = ReviewTpSerializer(reviews, many=True)
+        reviewsSerializer = TotalReviewSerializer(reviews, many=True)
+
         response = Response()
 
         simExp1 = TouristicPlace.objects.filter(type_place=touristicPlace.type_place).exclude(touristicplace_id=pk)

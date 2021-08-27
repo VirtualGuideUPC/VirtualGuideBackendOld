@@ -1,7 +1,7 @@
 from modules.places.serializers import TouristicPlaceSerializer
 from modules.places.models import TouristicPlace
 from rest_framework.views import APIView
-from .serializers import ReviewSerializer, PictureReviewSerializer
+from .serializers import ReviewSerializer, PictureReviewSerializer, TotalReviewSerializer
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
 import jwt
@@ -50,6 +50,8 @@ class ReviewTouristicPlaceListView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         reviews = Review.objects.filter(touristic_place=pk)
-        serializer = ReviewSerializer(reviews, many=True)
+
+        serializer = TotalReviewSerializer(reviews, many=True)
+
         return Response(serializer.data)
 
