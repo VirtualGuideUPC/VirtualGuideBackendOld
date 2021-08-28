@@ -51,7 +51,7 @@ class TypePlaceSerializer(serializers.ModelSerializer):
         instance = self.Meta.model(**validated_data)
         instance.save()
         return instance
-        
+
 class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = PictureTouristicPlace
@@ -87,6 +87,17 @@ class CategoryTpSerializer(serializers.ModelSerializer):
 
     def get_name(self, obj):
         return obj.category.name
+
+class SubCategorySerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = SubCategory
+        fields =['subcategory_id', 'name', 'icon']
+
+    def create(self, validated_data): 
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
 
 class NearbyPlaceSerializer(serializers.ModelSerializer):
 
