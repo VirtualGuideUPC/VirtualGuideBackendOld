@@ -2,7 +2,7 @@ from .services import PlaceService
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import CategoryTpSerializer, SubCategorySerializer, TypePlaceSerializer, NearbyPlaceSerializer, TouristicPlaceCategorySerializer, TouristicPlaceSerializer, PictureTouristicPlaceSerializer
+from .serializers import CategoryTpSerializer, CategorySerializer, SubCategorySerializer, TypePlaceSerializer, NearbyPlaceSerializer, TouristicPlaceCategorySerializer, TouristicPlaceSerializer, PictureTouristicPlaceSerializer
 from .models import *
 from modules.reviews.models import Review
 from modules.reviews.serializers import ReviewTpSerializer
@@ -37,6 +37,21 @@ class TypePlaceListView(APIView):
             raise AuthenticationFailed('Unauthenticated!')
         typePlaces= TypePlace.objects.all()
         serializer=TypePlaceSerializer(typePlaces, many=True)
+        return Response(serializer.data)
+
+class CategoryListView(APIView):
+    def get(self, request):
+        token=request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+        try:
+            payload=jwt.decode(token,'secret',algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        categories= Category.objects.all()
+        serializer=CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
 class SubCategoryListView(APIView):

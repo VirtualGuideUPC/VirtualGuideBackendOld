@@ -88,6 +88,16 @@ class CategoryTpSerializer(serializers.ModelSerializer):
     def get_name(self, obj):
         return obj.category.name
 
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Category
+        fields =['category_id', 'name', 'icon']
+
+    def create(self, validated_data): 
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+
 class SubCategorySerializer(serializers.ModelSerializer):
     class Meta: 
         model = SubCategory
