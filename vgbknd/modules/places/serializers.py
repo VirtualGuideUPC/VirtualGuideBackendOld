@@ -42,7 +42,16 @@ class DepartmentSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-
+class TypePlaceSerializer(serializers.ModelSerializer): 
+    class Meta: 
+        model = TypePlace
+        fields =['typeplace_id','name','icon']
+    
+    def create(self, validated_data): 
+        instance = self.Meta.model(**validated_data)
+        instance.save()
+        return instance
+        
 class PictureTouristicPlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = PictureTouristicPlace

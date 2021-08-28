@@ -20,6 +20,7 @@ class Account(AbstractUser):
     country = models.ForeignKey(Country, null=False, blank=False, default=1, on_delete=models.CASCADE)
     status = models.IntegerField(default=1)
     birthday = models.DateField(default="2021-08-17")
+    icon = models.CharField(max_length=255, default='None')
     is_foreign = models.BooleanField(default=False)
     username = None
 
