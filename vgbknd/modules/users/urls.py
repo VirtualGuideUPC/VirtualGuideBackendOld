@@ -13,7 +13,7 @@ urlpatterns = [
     path('users/preference/typeplace/create/', AddTypePlacePreference.as_view()),
     path('users/<str:pk>/favourites/departments/', ListFavouriteDepartment.as_view()),
     path('users/<str:pk>/favourites/departments/<str:pk2>/', ListFavourite.as_view()),
-    path('users/preferences/', ListPreference.as_view()),
+    path('users/preferences/<str:pk>/', ListPreference.as_view()),
     path('users/preference/category/update/', UpdateCategoryPreference.as_view()),
     path('users/preference/typeplace/update/', UpdateTypePlacePreference.as_view()),
     path('users/getAllTypePlaces/',TypePlaceListView.as_view()),

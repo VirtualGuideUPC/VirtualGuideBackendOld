@@ -4,7 +4,7 @@ from modules.places.models import Province, Department, TouristicPlace
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer
+from .serializers import AccountSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer, PreferenceSubCategorySerializer
 from .models import *
 import jwt   
 import datetime
@@ -162,7 +162,7 @@ class ListFavourite(APIView):
 
 
 class ListPreference(APIView):
-    def get(self, request):
+    def get(self, request, pk):
         token = request.COOKIES.get('jwt')
 
         if not token:
@@ -173,20 +173,23 @@ class ListPreference(APIView):
         except jwt.ExpiredSignatureError:
             raise AuthenticationFailed('Unauthenticated!')
 
-        user_id = request.data['user']
-
-        prcategory = PreferenceCategory.objects.filter(user=user_id)
+        prcategory = PreferenceCategory.objects.filter(user=pk, status=True)
 
         catserializer = PreferenceCategorySerializer(prcategory, many=True)
-        
-        prtypeplace = PreferenceTypePlace.objects.filter(user=user_id)
+
+        prsubcategory = PreferenceSubCategory.objects.filter(user=pk, status=True)
+
+        subcatserializer = PreferenceSubCategorySerializer(prsubcategory, many=True)
+
+        prtypeplace = PreferenceTypePlace.objects.filter(user=pk, status=True)
 
         tpserializer = PreferenceTypePlaceSerializer(prtypeplace, many=True)
         response = Response()
 
         response.data = {
             'categories': catserializer.data,
-            'typeplaces': tpserializer.data
+            'typeplaces': tpserializer.data,
+            'subcategories': subcatserializer.data,
         }
         return response
 
