@@ -57,9 +57,6 @@ class PictureTouristicPlace(models.Model):
     touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, default=1, on_delete=models.CASCADE)
 
 
-
-
-
 class TouristicPlaceCategory(models.Model):
     tp_category_id = models.AutoField(primary_key=True)
     category = models.ForeignKey(Category, null=False, blank=False, default=1, on_delete=models.CASCADE)

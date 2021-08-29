@@ -1,3 +1,4 @@
+from rest_framework.validators import UniqueTogetherValidator
 from modules.places.models import Department
 from modules.places.serializers import NearbyPlaceSerializer
 from rest_framework import serializers
@@ -52,7 +53,12 @@ class PreferenceCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PreferenceCategory
         fields = ['category', 'user', 'status']
-    
+        validators = [
+            UniqueTogetherValidator(
+                queryset=PreferenceCategory.objects.all(),
+                fields=('category','user')
+            )
+        ]
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         instance.save()
@@ -69,7 +75,12 @@ class PreferenceSubCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = PreferenceSubCategory
         fields = ['subcategory','user','status']
-
+        validators = [
+            UniqueTogetherValidator(
+                queryset=PreferenceSubCategory.objects.all(),
+                fields=('subcategory','user')
+            )
+        ]
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         instance.save()
@@ -86,7 +97,12 @@ class PreferenceTypePlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = PreferenceTypePlace
         fields = ['type_place', 'user', 'status']
-    
+        validators = [
+            UniqueTogetherValidator(
+                queryset=PreferenceTypePlace.objects.all(),
+                fields=('type_place','user')
+            )
+        ]
     def create(self, validated_data):
         instance = self.Meta.model(**validated_data)
         instance.save()
@@ -99,4 +115,11 @@ class PreferenceTypePlaceSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
-
+class RegisterAccountSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        fields = ['account_id', 'email', 'password', 'name', 'last_name', 'birthday', 'country']
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
+    

@@ -33,7 +33,6 @@ class Favourite(models.Model):
     touristic_place = models.ForeignKey(TouristicPlace, null=False, blank=False, default=1, on_delete=models.CASCADE)
     user = models.ForeignKey(Account, null=False, blank=False, default=1, on_delete=models.CASCADE)    
 
-
 class PreferenceCategory(models.Model):
     preference_category_id = models.AutoField(primary_key=True)
     category = models.ForeignKey(Category, null=False, blank=False, default=1, on_delete=models.CASCADE)    

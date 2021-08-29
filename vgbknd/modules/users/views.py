@@ -4,7 +4,7 @@ from modules.places.models import Province, Department, TouristicPlace
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import AuthenticationFailed
-from .serializers import AccountSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer, PreferenceSubCategorySerializer
+from .serializers import RegisterAccountSerializer, AccountSerializer, FavouriteSerializer, FavouriteTpSerializer, PreferenceCategorySerializer, PreferenceTypePlaceSerializer, PreferenceSubCategorySerializer
 from .models import *
 import jwt   
 import datetime
@@ -14,10 +14,59 @@ from rest_framework import status
 
 class RegisterView(APIView):
     def post(self, request):
-        serializer = AccountSerializer(data=request.data)
+
+        typeplaces=request.data.pop('type_place')
+        categories= request.data.pop('category')
+        subcategories=request.data.pop('subcategory')
+
+        email=request.data['email']
+        serializer=AccountSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+    
+        if(serializer.is_valid()):
+
+            accounts= Account.objects.all()
+            serializer=RegisterAccountSerializer(accounts, many=True)
+            for dicts in serializer.data:
+                if dicts['email']==email:
+                    accountId=dicts['account_id']
+
+            for tp in typeplaces:
+                tpserializer=PreferenceTypePlaceSerializer(data={"type_place": tp, "user": accountId, "status":False})
+                tpserializer.is_valid(raise_exception=True)
+                tpserializer.save()
+        
+            for cat in categories:
+                catserializer=PreferenceCategorySerializer(data={"category": cat, "user": accountId, "status":False})
+                catserializer.is_valid(raise_exception=True)
+                catserializer.save()        
+        
+            for subcat in subcategories:
+                subcatserializer=PreferenceSubCategorySerializer(data={"subcategory": subcat, "user":accountId, "status":False})
+                subcatserializer.is_valid(raise_exception=True)
+                subcatserializer.save()      
+
+
+        return Response(subcatserializer.data) 
+        
+class ListPreferedTypePlace(APIView): 
+
+    def get(self, request):
+
+        preferedTypePlaces= PreferenceTypePlace.objects.all()
+        serializer=PreferenceTypePlaceSerializer(preferedTypePlaces, many=True)
         return Response(serializer.data)
+
+class ListPreferedCategory(APIView): 
+
+    def get(self, request):
+
+        preferedCategories= PreferenceCategory.objects.all()
+        serializer=PreferenceCategorySerializer(preferedCategories, many=True)
+        return Response(serializer.data)
+
+
 
 class AddCategoryPreference(APIView):
     def post(self, request):
@@ -249,3 +298,10 @@ class UpdateTypePlacePreference(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class AccountListView(APIView):
+    def get(self, request):
+
+        accounts= Account.objects.all()
+        serializer=RegisterAccountSerializer(accounts, many=True)
+        return Response(serializer.data)
