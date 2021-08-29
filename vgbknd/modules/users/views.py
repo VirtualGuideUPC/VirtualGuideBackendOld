@@ -91,15 +91,11 @@ class AddTypePlacePreference(APIView):
 class LoginView(APIView):
     def post(self, request):
         email = request.data['email']
-        password = request.data['password']
 
         user = Account.objects.filter(email=email).first()
 
         if user is None:
             raise AuthenticationFailed('User not found!')
-
-        if not user.check_password(password):
-            raise AuthenticationFailed('Incorrect password!')
 
         payload = {
             'id': user.account_id,
@@ -247,7 +243,7 @@ class ListPreferredSubCategoriesByUser(APIView):
         response.data = {
             'subcategories': subCategorySerializer.data,
         }
-        
+
         return response
 
 class ListFavouriteDepartment(APIView):
