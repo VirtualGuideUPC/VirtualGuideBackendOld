@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from django.urls import path
 from ..places.views import TypePlaceListView, CategoryListView, SubCategoryListView
-from .views import ListPreferedCategory, ListPreferedTypePlace, AddFavourite, AddCategoryPreference, AddTypePlacePreference, ListFavourite, ListFavouriteDepartment, ListPreference, RegisterView, LoginView, UpdateCategoryPreference, UpdateTypePlacePreference, UserView, LogoutView 
+from .views import ListPreferedSubCategory, ListPreferredTypePlacesByUser, ListPreferredCategoriesByUser,ListPreferedCategory, ListPreferedTypePlace, AddFavourite, AddCategoryPreference, AddTypePlacePreference, ListFavourite, ListFavouriteDepartment, ListPreference, RegisterView, LoginView, UpdateCategoryPreference, UpdateTypePlacePreference, UserView, LogoutView 
 
 urlpatterns = [
     path('users/register/', RegisterView.as_view()),
@@ -14,6 +14,9 @@ urlpatterns = [
     path('users/<str:pk>/favourites/departments/', ListFavouriteDepartment.as_view()),
     path('users/<str:pk>/favourites/departments/<str:pk2>/', ListFavourite.as_view()),
     path('users/preferences/<str:pk>/', ListPreference.as_view()),
+    path('users/getCategories/<str:pk>/', ListPreferredCategoriesByUser.as_view()),
+    # path('users/getCategories/<str:pk>/', ListPreferredSubCategoriesByUser.as_view()),
+    path('users/getCategories/<str:pk>/', ListPreferredTypePlacesByUser.as_view()),    
     path('users/preference/category/update/', UpdateCategoryPreference.as_view()),
     path('users/preference/typeplace/update/', UpdateTypePlacePreference.as_view()),
     path('users/getAllTypePlaces/',TypePlaceListView.as_view()),
@@ -21,5 +24,6 @@ urlpatterns = [
     path('users/getAllCategories/', CategoryListView.as_view()),
     path('users/getAllPreferenceTypePlaces/',ListPreferedTypePlace.as_view()),
     path('users/getAllPreferenceCategories/',ListPreferedCategory.as_view()),
+    path('users/getAllPreferenceSubCategories/',ListPreferedSubCategory.as_view()),
 
 ]
