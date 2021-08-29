@@ -109,7 +109,7 @@ class PreferenceTypePlaceSerializer(serializers.ModelSerializer):
         return instance
     
     def update(self, instance, validated_data):
-        instance.type_place = validated_data.get('category', instance.type_place)
+        instance.type_place = validated_data.get('type_place', instance.type_place)
         instance.user = validated_data.get('user', instance.user)
         instance.status = validated_data.get('status', instance.status)
         instance.save()

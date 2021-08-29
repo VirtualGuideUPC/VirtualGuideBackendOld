@@ -169,10 +169,22 @@ class ListPreferredTypePlacesByUser(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         preferredTypePlaces= PreferenceTypePlace.objects.filter(user=pk)
-        print(preferredTypePlaces)
-        serializer = PreferenceTypePlaceSerializer(preferredTypePlaces, many=True)
-        print(serializer.data)
-        return Response(serializer.data)
+        tpserializer = PreferenceTypePlaceSerializer(preferredTypePlaces, many=True)
+        tplist=[]
+        for tp in tpserializer.data:
+            if tp['type_place'] not in tplist:
+                tplist.append(tp['type_place'])
+        typeplaces=TypePlace.objects.filter(typeplace_id__in=tplist)
+
+        typePlaceSerializer = TypePlaceSerializer(typeplaces,many=True)
+
+        
+        response = Response()
+
+        response.data = {
+            'typeplaces': typePlaceSerializer.data,
+        }
+        return response
 
 class ListPreferredCategoriesByUser(APIView): 
     def get(self, request, pk):
@@ -187,12 +199,56 @@ class ListPreferredCategoriesByUser(APIView):
             raise AuthenticationFailed('Unauthenticated!')
 
         preferredCategories= PreferenceCategory.objects.filter(user=pk)
-        print(preferredCategories)
-        serializer = PreferenceTypePlaceSerializer(preferredCategories, many=True)
-        print(serializer.data)
-        return Response(serializer.data)
+        catserializer = PreferenceCategorySerializer(preferredCategories, many=True)
+
+        catlist=[]
+        for cat in catserializer.data:
+            if cat['category'] not in catlist:
+                catlist.append(cat['category'])
+        categories=Category.objects.filter(category_id__in=catlist)
+
+        categorySerializer = CategorySerializer(categories,many=True)
+
+        
+        response = Response()
+
+        response.data = {
+            'categories': categorySerializer.data,
+        }
+        return response
 
 
+class ListPreferredSubCategoriesByUser(APIView): 
+    def get(self, request, pk):
+        token = request.COOKIES.get('jwt')
+
+        if not token:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        try:
+            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+        except jwt.ExpiredSignatureError:
+            raise AuthenticationFailed('Unauthenticated!')
+
+        preferredSubCategories= PreferenceSubCategory.objects.filter(user=pk)
+        subcatserializer = PreferenceSubCategorySerializer(preferredSubCategories, many=True)
+
+        subcatlist=[]
+
+        for subcat in subcatserializer.data:
+            if subcat['subcategory'] not in subcatlist:
+                subcatlist.append(subcat['subcategory'])
+
+        subcategories=SubCategory.objects.filter(subcategory_id__in=subcatlist)
+        subCategorySerializer = SubCategorySerializer(subcategories, many=True)
+        
+        response = Response()
+
+        response.data = {
+            'subcategories': subCategorySerializer.data,
+        }
+        
+        return response
 
 class ListFavouriteDepartment(APIView):
     def get(self, request, pk):
